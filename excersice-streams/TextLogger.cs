@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace excersice_streams
+﻿namespace excersice_streams
 {
     public class TextLogger: ILog
     {
@@ -18,7 +11,15 @@ namespace excersice_streams
 
         public void Save(string filePath)
         {
-            File.WriteAllLines("../../../Files-excercise-streams/" + filePath, logs);
+            //File.WriteAllLines(filePath, logs);
+            using (StreamWriter streamWriter = new StreamWriter(filePath))
+            {
+                foreach (string line in logs)
+                {
+                    streamWriter.WriteLine(line);
+                }
+            }
+            this.logs.Clear();
         }
     }
 }

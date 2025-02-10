@@ -1,4 +1,6 @@
-﻿namespace excersice_streams
+﻿using ClosedXML.Excel;
+
+namespace excersice_streams
 {
     public class Team
     {
@@ -18,23 +20,20 @@
             set { players = value; }
         }
 
-        private ILog logHistory;
-        private ILog logPrint;
+        private List<string> logHistory = new();
 
-        public Team(string name, ILog logHistory, ILog logPrint)
+        public Team(string name)
         {
             this.Name = name;
-            this.logHistory = logHistory;
-            this.logPrint = logPrint;
             this.players = new();
-            this.logHistory.Log($"Team {name} has been created at {DateTime.Now}.");
+            this.logHistory.Add($"Team {name} has been created at {DateTime.Now}.");
         }
 
 
         public void AddPlayer(Player player)
         {
             this.players.Add(player);
-            this.logHistory.Log($"Player {player.Name} joined team {this.Name} at {DateTime.Now}.");
+            this.logHistory.Add($"Player {player.Name} joined team {this.Name} at {DateTime.Now}.");
         }
 
         public void RemovePlayer(string playerName)
@@ -44,25 +43,33 @@
             if (player != null)
             {
                 players.Remove(player);
-                this.logHistory.Log($"At {DateTime.Now} player {playerName} left the team {this.Name}.");
+                this.logHistory.Add($"At {DateTime.Now} player {playerName} left the team {this.Name}.");
             }
         }
 
-        public void PrintTeam(string filePath)
+        public void PrintTeam(string filePath, ILog logPrint)
         {
-            this.logPrint.Log($"Team: {this.Name}");
+            logPrint.Log("Print");
+            logPrint.Log($"Team {this.Name}");
 
             foreach (var player in this.players)
             {
-                this.logPrint.Log($"Player in this team: {player.Name} at {player.Position} position");
+                logPrint.Log($"{player.Name} at position - {player.Position}");
             }
 
-            this.logPrint.Save(filePath);
+            logPrint.Save(filePath);
         }
 
-        public void PrintHistory(string filePath)
+        public void PrintHistory(string filePath, ILog logForHistory)
         {
-            this.logHistory.Save(filePath);
+            logForHistory.Log("History");
+            logForHistory.Log($"Team {this.Name}");
+
+            foreach (var line in this.logHistory)
+            {
+                logForHistory.Log(line);
+            }
+            logForHistory.Save(filePath);
         }
     }
 }

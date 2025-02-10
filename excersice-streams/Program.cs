@@ -7,8 +7,8 @@
             List<Team> teams = new List<Team>();
             List<Player> players = new List<Player>();
 
-            ILog txtLogForPrint = new TextLogger();
-            ILog txtLogForHistory = new TextLogger();
+            ILog txtLogger = new TextLogger();
+            ILog xlsxLog = new ExcelLogger();
 
             bool running = true;
 
@@ -23,7 +23,7 @@
                 {
                     try
                     {
-                        Team team = new Team(command[1], txtLogForHistory, txtLogForPrint);
+                        Team team = new Team(command[1]);
                         teams.Add(team);
                     }
                     catch (IndexOutOfRangeException ex)
@@ -63,8 +63,8 @@
                         {
                             Console.WriteLine("Team not found!");
                             command = Console.ReadLine()
-    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-    .ToList();
+                                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                                .ToList();
                             continue;
                         }
 
@@ -75,10 +75,8 @@
                         {
                             Console.WriteLine("Player not found!");
                             command = Console.ReadLine()
-    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-    .ToList(); command = Console.ReadLine()
-    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-    .ToList();
+                                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                                .ToList();
                             continue;
                         }
 
@@ -100,8 +98,8 @@
                         {
                             Console.WriteLine("Team not found!");
                             command = Console.ReadLine()
-                    .Split(" ", StringSplitOptions.RemoveEmptyEntries)
-                    .ToList();
+                                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                                .ToList();
                             continue;
                         }
 
@@ -133,7 +131,11 @@
 
                         if (typeOfLogger == "txt")
                         {
-                            teamToPrint.PrintTeam(filePathToPrint);
+                            teamToPrint.PrintTeam(filePathToPrint, txtLogger);
+                        }
+                        else if(typeOfLogger == "excel")
+                        {
+                            teamToPrint.PrintTeam(filePathToPrint, xlsxLog);
                         }
                     }
                     catch (IndexOutOfRangeException ex)
@@ -158,7 +160,7 @@
                         }
 
                         string filePath = command[2];
-                        teamToPrintLog.PrintHistory(filePath);
+                        teamToPrintLog.PrintHistory(filePath, txtLogger);
                     }
                     catch (IndexOutOfRangeException ex)
                     {
@@ -166,7 +168,29 @@
                     }
                 }
 
-                command = Console.ReadLine()
+                if (command[0] =="print_log_excel")
+                {
+                    try
+                    {
+                        Team teamToPrintLog = teams.FirstOrDefault(t => t.Name == command[1]);
+
+                        if (teamToPrintLog == null)
+                        {
+                            Console.WriteLine("Team not found!");
+                            continue;
+                        }
+
+                        string filePath = command[2];
+                        teamToPrintLog.PrintHistory(filePath, xlsxLog);
+                    }
+                    catch (IndexOutOfRangeException ex)
+                    {
+                        Console.WriteLine("Invalid number of parameters! " + ex.Message);
+                    }
+                }
+       
+
+                    command = Console.ReadLine()
                     .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                     .ToList();
             }
