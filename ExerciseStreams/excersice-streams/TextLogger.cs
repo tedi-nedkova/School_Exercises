@@ -11,7 +11,7 @@
 
         public void Save(string filePath)
         {
-            //File.WriteAllLines(filePath, logs);
+            //File.WriteAllLines("../../../Files-excercise-streams/" + filePath, logs);
             using (StreamWriter streamWriter = new StreamWriter(filePath))
             {
                 foreach (string line in logs)
@@ -19,7 +19,6 @@
                     streamWriter.WriteLine(line);
                 }
             }
-            this.logs.Clear();
         }
     }
 }

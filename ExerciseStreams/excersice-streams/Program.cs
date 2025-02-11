@@ -76,6 +76,11 @@
                             Console.WriteLine("Player not found!");
                             command = Console.ReadLine()
                                 .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+<<<<<<< HEAD:ExerciseStreams/excersice-streams/Program.cs
+                                .ToList(); command = Console.ReadLine()
+                                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+=======
+>>>>>>> ee08c5acc4720a4d14004c8c98720bee328a13c7:excersice-streams/Program.cs
                                 .ToList();
                             continue;
                         }
