@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParallelWebScraper", "ParallelWebScraper\ParallelWebScraper.csproj", "{6C80CA24-D449-46FE-8A5B-8302C07EE712}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C80CA24-D449-46FE-8A5B-8302C07EE712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C80CA24-D449-46FE-8A5B-8302C07EE712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C80CA24-D449-46FE-8A5B-8302C07EE712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C80CA24-D449-46FE-8A5B-8302C07EE712}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {364A0C99-331F-4633-A5CB-A99C37BA6FD2}
+	EndGlobalSection
+EndGlobal
