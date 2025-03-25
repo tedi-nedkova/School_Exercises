@@ -77,6 +77,10 @@ namespace FormulaOne_2._0.Presentation
                                 Console.WriteLine("There are no teams from this country");
                             }
 
+                            foreach (var item in teamsByCountry)
+                            {
+                                Console.WriteLine($"{item.TeamName} - {item.Country} - {item.FoundationYear}");
+                            }
                             break;
 
                         case "4":

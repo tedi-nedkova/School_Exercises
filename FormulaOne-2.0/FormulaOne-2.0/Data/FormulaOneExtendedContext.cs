@@ -26,13 +26,13 @@ public partial class FormulaOneExtendedContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-6VQ6QDR\\SQLEXPRESS;Database=formula_one_extended;Integrated Security=true;TrustServerCertificate=true;");
+        => optionsBuilder.UseSqlServer("Data Source=STUDENT19;Initial Catalog=formula_one_extended;Integrated Security=True;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Driver>(entity =>
         {
-            entity.HasKey(e => e.DriverId).HasName("PK__Drivers__A411C5BDFB76FFE3");
+            entity.HasKey(e => e.DriverId).HasName("PK__Drivers__A411C5BDC31DBB0F");
 
             entity.Property(e => e.DriverId).HasColumnName("driver_id");
             entity.Property(e => e.BirthDate).HasColumnName("birth_date");
@@ -53,12 +53,12 @@ public partial class FormulaOneExtendedContext : DbContext
             entity.HasOne(d => d.Team).WithMany(p => p.Drivers)
                 .HasForeignKey(d => d.TeamId)
                 .OnDelete(DeleteBehavior.SetNull)
-                .HasConstraintName("FK__Drivers__team_id__3A81B327");
+                .HasConstraintName("FK__Drivers__team_id__398D8EEE");
         });
 
         modelBuilder.Entity<Race>(entity =>
         {
-            entity.HasKey(e => e.RaceId).HasName("PK__Races__1C8FE2F9F8D21AAA");
+            entity.HasKey(e => e.RaceId).HasName("PK__Races__1C8FE2F907C221C5");
 
             entity.Property(e => e.RaceId).HasColumnName("race_id");
             entity.Property(e => e.Location)
@@ -75,7 +75,7 @@ public partial class FormulaOneExtendedContext : DbContext
 
         modelBuilder.Entity<RaceResult>(entity =>
         {
-            entity.HasKey(e => e.ResultId).HasName("PK__Race_Res__AFB3C3165581927E");
+            entity.HasKey(e => e.ResultId).HasName("PK__Race_Res__AFB3C3161B54BAA4");
 
             entity.ToTable("Race_Results");
 
@@ -92,17 +92,17 @@ public partial class FormulaOneExtendedContext : DbContext
             entity.HasOne(d => d.Driver).WithMany(p => p.RaceResults)
                 .HasForeignKey(d => d.DriverId)
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK__Race_Resu__drive__403A8C7D");
+                .HasConstraintName("FK__Race_Resu__drive__3F466844");
 
             entity.HasOne(d => d.Race).WithMany(p => p.RaceResults)
                 .HasForeignKey(d => d.RaceId)
                 .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK__Race_Resu__race___3F466844");
+                .HasConstraintName("FK__Race_Resu__race___3E52440B");
         });
 
         modelBuilder.Entity<Team>(entity =>
         {
-            entity.HasKey(e => e.TeamId).HasName("PK__Teams__F82DEDBC1263CCA7");
+            entity.HasKey(e => e.TeamId).HasName("PK__Teams__F82DEDBC712DF586");
 
             entity.Property(e => e.TeamId).HasColumnName("team_id");
             entity.Property(e => e.Country)
