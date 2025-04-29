@@ -15,5 +15,8 @@ namespace MoneyQuiz.Data.Models
 
         public ICollection<Answer> Answers { get; set; }
             = new List<Answer>();
+
+        public ICollection<Lifeline> Lifelines { get; set; }
+            = new List<Lifeline>();
     }
 }

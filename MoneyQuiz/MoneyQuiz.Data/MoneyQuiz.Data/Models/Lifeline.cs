@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MoneyQuiz.Data.Models
@@ -11,15 +12,15 @@ namespace MoneyQuiz.Data.Models
         [Required]
         public string Type { get; set; } = null!;
 
+        [ForeignKey(nameof(UserOnQuestion))]
         public int UsedOnQuestionId { get; set; }
 
-        [ForeignKey(nameof(UsedOnQuestionId))]
         public Question UserOnQuestion { get; set; } = null!;
 
 
+        [ForeignKey(nameof(PlayerGameSession))]
         public int PlayerGameSessionId { get; set; }
 
-        [ForeignKey(nameof(PlayerGameSessionId))]
         public PlayerGameSession PlayerGameSession { get; set; } = null!;
     }
 }

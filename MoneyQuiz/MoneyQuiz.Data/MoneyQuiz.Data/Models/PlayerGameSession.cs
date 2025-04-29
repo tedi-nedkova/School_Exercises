@@ -5,19 +5,18 @@ using System.Runtime.InteropServices;
 
 namespace MoneyQuiz.Data.Models
 {
-    [PrimaryKey(nameof(PlayerId), nameof(GameSessionId))]
     public class PlayerGameSession
     {
         [Key]
         public int Id { get; set; }
-
+        
         public int PlayerId { get; set; }
         [ForeignKey(nameof(PlayerId))]
-        public Player Player { get; set; } = null!;
+        public virtual Player Player { get; set; } = null!;
 
         public int GameSessionId { get; set; }
         [ForeignKey(nameof(GameSessionId))]
-        public GameSession GameSession { get; set; } = null!;
+        public virtual GameSession GameSession { get; set; } = null!;
 
         public ICollection<Lifeline> Lifelines { get; set; }
             = new List<Lifeline>();
