@@ -63,7 +63,7 @@ namespace CourierFirm.ConsoleApp
                 {
                     case "1":
                         List<Courier> allCouriers = await courierCtrl.GetAllAsync();
-
+                        
                         allCouriers.ForEach(c => Console.WriteLine($"{c.Id}. {c.Name} ({c.Office.Name}, {c.Vehicle.Model})"));
                         break;
 
@@ -72,7 +72,15 @@ namespace CourierFirm.ConsoleApp
                         int courierId = int.Parse(Console.ReadLine());
 
                         Courier courier = await courierCtrl.GetByIdAsync(courierId);
-                        Console.WriteLine($"{courier.Id}. {courier.Name}");
+                        if (courier != null)
+                        {
+                            Console.WriteLine($"{courier.Id}. {courier.Name}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Куриерът не е намерен");
+                        }
+
                         break;
 
                     case "3":
@@ -139,6 +147,12 @@ namespace CourierFirm.ConsoleApp
                         int courierVhId = int.Parse(Console.ReadLine());
 
                         List<Vehicle> vehicles = await courierCtrl.GetVehiclesByCourierId(courierVhId);
+
+                        if (vehicles.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени превозни средство");
+                        }
+
                         vehicles.ForEach(v => Console.WriteLine($"{v.Id}. {v.Model}"));
 
                         break;
@@ -149,6 +163,11 @@ namespace CourierFirm.ConsoleApp
 
                         List<DeliveryRoute> routes = await courierCtrl.GetDeliveryRouteByCourierName(courierNameRoute);
 
+                        if (routes.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени маршрути");
+                        }
+
                         routes.ForEach(r => Console.WriteLine($"{r.Id}. {r.StartLocation} → {r.EndLocation}"));
                         break;
 
@@ -158,11 +177,21 @@ namespace CourierFirm.ConsoleApp
 
                         List<Package> packages = await courierCtrl.GetPackagesByCourierId(courierIdPck);
 
+                        if (packages.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени пакети");
+                        }
+
                         packages.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.Type} -> {p.Customer.FirstName} {p.Customer.LastName}"));
                         break;
 
                     case "9":
                         var allCustomers = await customerCtrl.GetAllAsync();
+
+                        if (allCustomers.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени клиенти");
+                        }
 
                         allCustomers.ForEach(c => Console.WriteLine($"{c.Id}. {c.FirstName} {c.LastName}"));
                         break;
@@ -172,7 +201,15 @@ namespace CourierFirm.ConsoleApp
                         int customerId = int.Parse(Console.ReadLine());
 
                         Customer customer = await customerCtrl.GetByIdAsync(customerId);
-                        Console.WriteLine($"{customer.Id}. {customer.FirstName} {customer.LastName} - {customer.Address} - {customer.PhoneNumber}");
+
+                        if (customer == null)
+                        {
+                            Console.WriteLine("Клиентът не е намерен");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{customer.Id}. {customer.FirstName} {customer.LastName} - {customer.Address} - {customer.PhoneNumber}");
+                        }
                         break;
 
                     case "11":
@@ -245,13 +282,23 @@ namespace CourierFirm.ConsoleApp
                     case "14":
                         List<Customer> active = await customerCtrl.GetCustomersWithActiveDeliveries();
 
+                        if (active.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени поръчки");
+                        }
+
                         active.ForEach(c => Console.WriteLine($"{c.Id}. {c.FirstName} {c.LastName}"));
                         break;
 
                     case "15":
                         List<Customer> topFive = await customerCtrl.GetTopFiveCustomersByPackagesCount();
 
-                        topFive.ForEach(c => Console.WriteLine($"{c.Id}: {c.FirstName} {c.LastName} ({c.Packages.Count})"));
+                        if (topFive.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени клиенти");
+                        }
+
+                        topFive.ForEach(c => Console.WriteLine($"{c.Id}. {c.FirstName} {c.LastName} ({c.Packages.Count})"));
                         break;
 
                     case "16":
@@ -271,6 +318,11 @@ namespace CourierFirm.ConsoleApp
                     case "17":
                         List<DeliveryRoute> allRoutes = await routeCtrl.GetAllAsync();
 
+                        if (allRoutes.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени маршрути");
+                        }
+
                         allRoutes.ForEach(r => Console.WriteLine($"{r.Id}: {r.StartLocation} → {r.EndLocation}"));
                         break;
 
@@ -280,7 +332,14 @@ namespace CourierFirm.ConsoleApp
 
                         DeliveryRoute route = await routeCtrl.GetByIdAsync(routeId);
 
-                        Console.WriteLine($"{route.Id}. {route.StartLocation} → {route.EndLocation}");
+                        if (route == null)
+                        {
+                            Console.WriteLine("Маршрутът не е намерен");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{route.Id}. {route.StartLocation} → {route.EndLocation}");
+                        }
                         break;
 
                     case "19":
@@ -342,6 +401,11 @@ namespace CourierFirm.ConsoleApp
                     case "22":
                         var allOffices = await officeCtrl.GetAllAsync();
 
+                        if (allOffices.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени офиси");
+                        }
+
                         allOffices.ForEach(o => Console.WriteLine($"{o.Id}. {o.Name} - {o.Location}"));
                         break;
 
@@ -351,7 +415,14 @@ namespace CourierFirm.ConsoleApp
 
                         Office office = await officeCtrl.GetByIdAsync(officeIdGet);
 
-                        Console.WriteLine($"{office.Id}. {office.Name} - {office.Location}");
+                        if (office != null)
+                        {
+                            Console.WriteLine($"{office.Id}. {office.Name} - {office.Location}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Офисът не е намерен");
+                        }
                         break;
 
                     case "24":
@@ -411,11 +482,24 @@ namespace CourierFirm.ConsoleApp
                     case "27":
                         Office topOffice = await officeCtrl.GetOfficeWithMostCouriers();
 
-                        Console.WriteLine($"{topOffice.Id}. {topOffice.Name} - {topOffice.Couriers.Count} куриери");
+                        if (topOffice == null)
+                        {
+                            Console.WriteLine("Офисът не е намерен");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{topOffice.Id}. {topOffice.Name} - {topOffice.Couriers.Count} куриери");
+                        }
+
                         break;
 
                     case "28":
                         var allPackages = await packageCtrl.GetAllAsync();
+
+                        if (allPackages.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени пакети");
+                        }
 
                         allPackages.ForEach(p => Console.WriteLine($"{p.Id}. {p.TrackingNumber}"));
                         break;
@@ -425,7 +509,17 @@ namespace CourierFirm.ConsoleApp
                         int packageId = int.Parse(Console.ReadLine());
 
                         var package = await packageCtrl.GetByIdAsync(packageId);
-                        Console.WriteLine($"{package.Id}. {package.TrackingNumber}");
+
+                        if (package == null)
+                        {
+                            Console.WriteLine("Пакетът не е намерен");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{package.Id}. {package.TrackingNumber}");
+                        }
+
+                        
                         break;
 
                     case "30":
@@ -503,7 +597,12 @@ namespace CourierFirm.ConsoleApp
                         break;
 
                     case "33":
-                        var late = await packageCtrl.GetLateDeliveries();
+                        List<Package> late = await packageCtrl.GetLateDeliveries();
+
+                        if (late.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени пакети");
+                        }
 
                         late.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.DeliveryDate.ToString()}"));
                         break;
@@ -520,17 +619,32 @@ namespace CourierFirm.ConsoleApp
 
                         List<Package> packagesSorted = await packageCtrl.GetPackagesByTypeAndWeight(type, minWeight, maxWeight);
 
+                        if (packagesSorted.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени пакети");
+                        }
+
                         packagesSorted.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.Type}"));
                         break;
 
                     case "35":
-                        var unassigned = await packageCtrl.GetUnassignedPackages();
+                        List<Package> unassigned = await packageCtrl.GetUnassignedPackages();
+
+                        if (unassigned.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени пакети");
+                        }
 
                         unassigned.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.Type}"));
                         break;
 
                     case "36":
                         var allVehicle = await vehicleCtrl.GetAllAsync();
+
+                        if (allVehicle.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени превозни средства");
+                        }
 
                         allVehicle.ForEach(v => Console.WriteLine($"{v.Id}. {v.Model} {v.PlateNumber}"));
                         break;
@@ -541,7 +655,14 @@ namespace CourierFirm.ConsoleApp
 
                         var v = await vehicleCtrl.GetByIdAsync(vehicleIdGet);
 
-                        Console.WriteLine($"{v.Id}. {v.Model}");
+                        if (v == null)
+                        {
+                            Console.WriteLine("Превозното средство не е намерено");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{v.Id}. {v.Model}");
+                        }
                         break;
 
                     case "38":
@@ -605,6 +726,12 @@ namespace CourierFirm.ConsoleApp
                         int cvId = int.Parse(Console.ReadLine());
 
                         List<Courier> cs = await vehicleCtrl.GetCouriersByVehicleId(cvId);
+
+                        if (cs.Count == 0)
+                        {
+                            Console.WriteLine("Няма намерени куриери");
+                        }
+
                         cs.ForEach(c => Console.WriteLine($"{c.Id}. {c.Name}"));
                         break;
 
