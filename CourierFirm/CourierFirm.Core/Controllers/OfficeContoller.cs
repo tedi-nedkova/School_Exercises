@@ -71,6 +71,7 @@ namespace CourierFirm.Core.Controllers
         public async Task<Office> GetOfficeWithMostCouriers()
         {
             return await _context.Offices
+                .Include(o => o.Couriers)
                 .OrderByDescending(o => o.Couriers.Count)
                 .FirstAsync();
         }

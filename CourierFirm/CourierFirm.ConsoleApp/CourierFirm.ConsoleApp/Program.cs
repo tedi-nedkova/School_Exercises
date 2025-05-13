@@ -5,9 +5,13 @@ namespace CourierFirm.ConsoleApp
 {
     public class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            CourierFirmDbContext context = new CourierFirmDbContext();
+            Display display = new Display();
+
+            await display.SeedDataBase();
+
+            await display.Menu();
         }
     }
 }

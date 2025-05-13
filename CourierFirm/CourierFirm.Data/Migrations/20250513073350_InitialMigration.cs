@@ -20,7 +20,8 @@ namespace CourierFirm.Data.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(90)", maxLength: 90, nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false)
+                    PhoneNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,6 +157,7 @@ namespace CourierFirm.Data.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     CourierId = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryStatus = table.Column<int>(type: "int", nullable: false),
                     DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

@@ -1,5 +1,5 @@
-﻿1;CA1234TX;Ford Transit;Van
-2;CB5678AB;Mercedes Sprinter;Truck
-3;CC9101CD;Peugeot Partner;Van
-4;CT9876GB;Mitsubish Cold;Car
-5;A2569KH;Mercedes-Benz Arocs;Truck
+﻿CA1234TX;Ford Transit;Van
+CB5678AB;Mercedes Sprinter;Truck
+CC9101CD;Peugeot Partner;Van
+CT9876GB;Mitsubish Cold;Car
+A2569KH;Mercedes-Benz Arocs;Truck

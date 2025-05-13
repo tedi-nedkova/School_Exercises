@@ -1,5 +1,5 @@
-﻿1;PKG10001;5;1;1;Document;3;2025-05-01
-2;PKG10002;12;2;2;Electronics;2;2025-05-07
-3;PKG10003;8;3;3;Clothing;1;2025-05-08
-4;PKG10004;15;4;4;Furniture;3;2025-05-03
-5;PKG10005;3;5;5;Document;1;2025-05-06
+﻿PKG10001;5;1;1;Document;3;100 Ivan Vazov St, Sofia;2025-05-01
+PKG10002;12;2;2;Electronics;2;45 Bulgaria Blvd, Plovdiv;2025-05-07
+PKG10003;8;3;3;Clothing;1;88 Shipka St, Varna;2025-05-08
+PKG10004;15;4;4;Furniture;3;21 Vasil Levski St, Burgas;2025-05-03
+PKG10005;3;5;5;Document;1;13 Nezavisimost Blvd, Ruse;025-05-06

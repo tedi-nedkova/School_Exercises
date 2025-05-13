@@ -77,6 +77,7 @@ namespace CourierFirm.Core.Controllers
                 .Include(p => p.Customer)
                 .Include(p => p.Courier)
                 .ToListAsync();
+
         }
 
         public async Task<List<Package>> GetPackagesByTypeAndWeight(string type, decimal minWeight, decimal maxWeight)
@@ -92,5 +93,6 @@ namespace CourierFirm.Core.Controllers
                 .Where(p => p.CourierId == 0) 
                 .ToListAsync();
         }
+
     }
 }

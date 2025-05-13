@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourierFirm.Data.Migrations
 {
     [DbContext(typeof(CourierFirmDbContext))]
-    [Migration("20250502083320_InitialMigration")]
+    [Migration("20250513073350_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -58,6 +58,10 @@ namespace CourierFirm.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(90)
@@ -171,6 +175,10 @@ namespace CourierFirm.Data.Migrations
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DeliveryDate")
                         .HasColumnType("datetime2");

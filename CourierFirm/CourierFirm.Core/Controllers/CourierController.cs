@@ -79,11 +79,13 @@ namespace CourierFirm.Core.Controllers
                 .ToListAsync();
         }
 
-        public async Task<List<DeliveryRoute>> GetDeliveryRouteByCourierId(int courierId)
+        public async Task<List<DeliveryRoute>> GetDeliveryRouteByCourierName(string courierName)
         {
 
            return await _context.CouriersDeliveryRoutes
-                .Where(cdr => cdr.CourierId == courierId)
+                .Include(cdr => cdr.Courier)
+                .Include(cdr => cdr.DeliveryRoute)
+                .Where(cdr => cdr.Courier.Name == courierName)
                 .Select(cdr => cdr.DeliveryRoute)
                 .ToListAsync();
         }

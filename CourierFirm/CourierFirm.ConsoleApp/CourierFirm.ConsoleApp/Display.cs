@@ -1,6 +1,683 @@
-﻿namespace CourierFirm.ConsoleApp
+﻿using CourierFirm.Core;
+using CourierFirm.Core.Controllers;
+using CourierFirm.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
+
+namespace CourierFirm.ConsoleApp
 {
     public class Display
     {
+
+        private CourierFirmDbContext context;
+
+        private CourierController courierCtrl;
+        private CustomerController customerCtrl;
+        private DeliveryRouteController routeCtrl;
+        private OfficeContoller officeCtrl;
+        private PackageController packageCtrl;
+        private VehicleController vehicleCtrl;
+
+        public Display()
+        {
+            context = new CourierFirmDbContext();
+
+            courierCtrl = new CourierController(context);
+            customerCtrl = new CustomerController(context);
+            routeCtrl = new DeliveryRouteController(context);
+            officeCtrl = new OfficeContoller(context);
+            packageCtrl = new PackageController(context);
+            vehicleCtrl = new VehicleController(context);
+        }
+
+        public async Task SeedDataBase()
+        {
+            DataSeed dataSeed = new DataSeed(context);
+
+            await dataSeed.SeedOfficesAsync();
+            await dataSeed.SeedVehiclesAsync();
+            await dataSeed.SeedDeliveryRoutesAsync();
+            await dataSeed.SeedCouriersAsync();
+            await dataSeed.SeedCouriersVehiclesAsync();
+            await dataSeed.SeedCouriersDeliveryRoutesAsync();
+            await dataSeed.SeedCustomersAsync();
+            await dataSeed.SeedPackagesAsync();
+        }
+
+        public async Task Menu()
+        {
+            Console.InputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            PrintNavigation();
+
+            while (true)
+            {
+                Console.Write("Изберете опция: ");
+                Console.WriteLine();
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        List<Courier> allCouriers = await courierCtrl.GetAllAsync();
+
+                        allCouriers.ForEach(c => Console.WriteLine($"{c.Id}. {c.Name} ({c.Office.Name}, {c.Vehicle.Model})"));
+                        break;
+
+                    case "2":
+                        Console.Write("ID на куриер: ");
+                        int courierId = int.Parse(Console.ReadLine());
+
+                        Courier courier = await courierCtrl.GetByIdAsync(courierId);
+                        Console.WriteLine($"{courier.Id}. {courier.Name}");
+                        break;
+
+                    case "3":
+                        Console.Write("Име на куриер: ");
+                        string name = Console.ReadLine();
+
+                        Console.Write("Офис ID: ");
+                        int officeId = int.Parse(Console.ReadLine());
+
+                        Console.Write("Превозно средство ID: ");
+                        int vehicleId = int.Parse(Console.ReadLine());
+
+                        await courierCtrl.AddAsync(new Courier
+                        {
+                            Name = name,
+                            OfficeId = officeId,
+                            VehicleId = vehicleId
+                        });
+
+                        Console.WriteLine("Куриера е добавен!");
+                        break;
+
+                    case "4":
+                        Console.Write("ID на куриер за актуализация: ");
+                        int updCourierId = int.Parse(Console.ReadLine());
+
+                        var exist = await courierCtrl.GetByIdAsync(updCourierId);
+
+                        if (exist != null)
+                        {
+                            Console.Write("Ново име: ");
+                            exist.Name = Console.ReadLine();
+
+                            Console.Write("Ново Office ID: ");
+                            exist.OfficeId = int.Parse(Console.ReadLine());
+
+                            Console.Write("Ново Vehicle ID: ");
+                            exist.VehicleId = int.Parse(Console.ReadLine());
+
+                            await courierCtrl.UpdateAsync(exist);
+
+                            Console.WriteLine("Обновено успешно.");
+                        }
+                        break;
+
+                    case "5":
+                        Console.Write("ID за изтриване: ");
+                        int deleteCourierId = int.Parse(Console.ReadLine());
+
+                        bool courierIsDeleted = await courierCtrl.DeleteAsync(deleteCourierId);
+
+                        if (courierIsDeleted)
+                        {
+                            Console.WriteLine("Успешно изтриване!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неуспешно изтриване!");
+                        }
+                        break;
+
+                    case "6":
+                        Console.Write("ID на куриер: ");
+                        int courierVhId = int.Parse(Console.ReadLine());
+
+                        List<Vehicle> vehicles = await courierCtrl.GetVehiclesByCourierId(courierVhId);
+                        vehicles.ForEach(v => Console.WriteLine($"{v.Id}. {v.Model}"));
+
+                        break;
+
+                    case "7":
+                        Console.Write("Име на куриер: ");
+                        string courierNameRoute = Console.ReadLine();
+
+                        List<DeliveryRoute> routes = await courierCtrl.GetDeliveryRouteByCourierName(courierNameRoute);
+
+                        routes.ForEach(r => Console.WriteLine($"{r.Id}. {r.StartLocation} → {r.EndLocation}"));
+                        break;
+
+                    case "8":
+                        Console.Write("ID на куриер: ");
+                        int courierIdPck = int.Parse(Console.ReadLine());
+
+                        List<Package> packages = await courierCtrl.GetPackagesByCourierId(courierIdPck);
+
+                        packages.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.Type} -> {p.Customer.FirstName} {p.Customer.LastName}"));
+                        break;
+
+                    case "9":
+                        var allCustomers = await customerCtrl.GetAllAsync();
+
+                        allCustomers.ForEach(c => Console.WriteLine($"{c.Id}. {c.FirstName} {c.LastName}"));
+                        break;
+
+                    case "10":
+                        Console.Write("ID на клиент: ");
+                        int customerId = int.Parse(Console.ReadLine());
+
+                        Customer customer = await customerCtrl.GetByIdAsync(customerId);
+                        Console.WriteLine($"{customer.Id}. {customer.FirstName} {customer.LastName} - {customer.Address} - {customer.PhoneNumber}");
+                        break;
+
+                    case "11":
+                        Console.Write("Име: ");
+                        string firstName = Console.ReadLine();
+
+                        Console.Write("Фамилия: ");
+                        string lastName = Console.ReadLine();
+
+                        Console.Write("Телефонен номер: ");
+                        string phoneNumber = Console.ReadLine();
+
+                        Console.Write("E-mail: ");
+                        string email = Console.ReadLine();
+
+                        Console.Write("Адрес: ");
+                        string address = Console.ReadLine();
+
+                        await customerCtrl.AddAsync(new Customer
+                        {
+                            FirstName = firstName,
+                            LastName = lastName,
+                            Email = email,
+                            PhoneNumber = phoneNumber,
+                            Address = address
+                        });
+
+                        Console.WriteLine("Клиентът е добавен!");
+                        break;
+
+                    case "12":
+                        Console.Write("ID на клиент: ");
+                        int customerIdUpd = int.Parse(Console.ReadLine());
+
+                        var customerToUpdate = await customerCtrl.GetByIdAsync(customerIdUpd);
+
+                        if (customerToUpdate != null)
+                        {
+                            Console.Write("Ново име: ");
+                            customerToUpdate.FirstName = Console.ReadLine();
+
+                            Console.Write("Нова фамилия: ");
+                            customerToUpdate.LastName = Console.ReadLine();
+
+                            await customerCtrl.UpdateAsync(customerToUpdate);
+                            Console.WriteLine("Клиентът е обновен!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Клиентът не е намерен");
+                        }
+                        break;
+
+                    case "13":
+                        Console.Write("ID за изтриване: ");
+                        int customerIdDelete = int.Parse(Console.ReadLine());
+
+                        bool customerIsDeleted = await customerCtrl.DeleteAsync(customerIdDelete);
+
+                        if (customerIsDeleted)
+                        {
+                            Console.WriteLine("Успешно изтриване!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неуспешно изтриване!");
+                        }
+                        break;
+
+                    case "14":
+                        List<Customer> active = await customerCtrl.GetCustomersWithActiveDeliveries();
+
+                        active.ForEach(c => Console.WriteLine($"{c.Id}. {c.FirstName} {c.LastName}"));
+                        break;
+
+                    case "15":
+                        List<Customer> topFive = await customerCtrl.GetTopFiveCustomersByPackagesCount();
+
+                        topFive.ForEach(c => Console.WriteLine($"{c.Id}: {c.FirstName} {c.LastName} ({c.Packages.Count})"));
+                        break;
+
+                    case "16":
+                        Console.Write("Име на куриер: ");
+                        string courierName = Console.ReadLine();
+
+                        List<Customer> customers = await customerCtrl.GetCustomersByCourierName(courierName);
+
+                        if (customers.Count == 0)
+                        {
+                            Console.WriteLine("Няма клиенти които са обслужвани от този куриер!");
+                        }
+
+                        customers.ForEach(c => Console.WriteLine($"{c.Id}. {c.FirstName} {c.LastName}"));
+                        break;
+
+                    case "17":
+                        List<DeliveryRoute> allRoutes = await routeCtrl.GetAllAsync();
+
+                        allRoutes.ForEach(r => Console.WriteLine($"{r.Id}: {r.StartLocation} → {r.EndLocation}"));
+                        break;
+
+                    case "18":
+                        Console.Write("ID на маршрут: ");
+                        int routeId = int.Parse(Console.ReadLine());
+
+                        DeliveryRoute route = await routeCtrl.GetByIdAsync(routeId);
+
+                        Console.WriteLine($"{route.Id}. {route.StartLocation} → {route.EndLocation}");
+                        break;
+
+                    case "19":
+                        Console.Write("Начална локация: ");
+                        string start = Console.ReadLine();
+
+                        Console.Write("Крайна локация: ");
+                        string end = Console.ReadLine();
+
+                        await routeCtrl.AddAsync(new DeliveryRoute
+                        {
+                            StartLocation = start,
+                            EndLocation = end
+                        });
+
+                        Console.WriteLine("Маршрутът е добавен!");
+                        break;
+
+                    case "20":
+                        Console.Write("ID на маршрут: ");
+                        int routeIdUpd = int.Parse(Console.ReadLine());
+
+                        var routeToUpdate = await routeCtrl.GetByIdAsync(routeIdUpd);
+
+                        if (routeToUpdate != null)
+                        {
+                            Console.Write("Нова начална локация: ");
+                            routeToUpdate.StartLocation = Console.ReadLine();
+
+                            Console.Write("Нова крайна локация: ");
+                            routeToUpdate.EndLocation = Console.ReadLine();
+
+                            await routeCtrl.UpdateAsync(routeToUpdate);
+                            Console.WriteLine("Маршрутът е обновен!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Няма такъв маршрут.");
+                        }
+
+                        break;
+
+                    case "21":
+                        Console.Write("ID за изтриване: ");
+                        int routeIdDelete = int.Parse(Console.ReadLine());
+
+                        bool routeIsDeleted = await routeCtrl.DeleteAsync(routeIdDelete);
+
+                        if (routeIsDeleted)
+                        {
+                            Console.WriteLine("Успешно изтриване!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неуспешно изтриване!");
+                        }
+                        break;
+
+                    case "22":
+                        var allOffices = await officeCtrl.GetAllAsync();
+
+                        allOffices.ForEach(o => Console.WriteLine($"{o.Id}. {o.Name} - {o.Location}"));
+                        break;
+
+                    case "23":
+                        Console.Write("ID на офис: ");
+                        int officeIdGet = int.Parse(Console.ReadLine());
+
+                        Office office = await officeCtrl.GetByIdAsync(officeIdGet);
+
+                        Console.WriteLine($"{office.Id}. {office.Name} - {office.Location}");
+                        break;
+
+                    case "24":
+                        Console.Write("Име на офис: ");
+                        string officeName = Console.ReadLine();
+
+                        Console.Write("Локация: ");
+                        string officeLocation = Console.ReadLine();
+
+                        await officeCtrl.AddAsync(new Office
+                        {
+                            Name = officeName,
+                            Location = officeLocation
+                        });
+
+                        Console.WriteLine("Офисът е добавен!");
+                        break;
+
+                    case "25":
+                        Console.Write("ID на офис: ");
+                        int officeIdUpd = int.Parse(Console.ReadLine());
+
+                        var officeToUpdate = await officeCtrl.GetByIdAsync(officeIdUpd);
+
+                        if (officeToUpdate != null)
+                        {
+                            Console.Write("Ново име: ");
+                            officeToUpdate.Name = Console.ReadLine();
+                            Console.Write("Нова локация: ");
+                            officeToUpdate.Location = Console.ReadLine();
+
+                            await officeCtrl.UpdateAsync(officeToUpdate);
+                            Console.WriteLine("Офисът е обновен!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Няма такъв офис.");
+                        }
+                        break;
+
+                    case "26":
+                        Console.Write("ID за изтриване: ");
+                        int officeIdDelete = int.Parse(Console.ReadLine());
+
+                        bool officeIsDeleted = await officeCtrl.DeleteAsync(officeIdDelete);
+
+                        if (officeIsDeleted)
+                        {
+                            Console.WriteLine("Успешно изтриване!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неуспешно изтриване!");
+                        }
+                        break;
+
+                    case "27":
+                        Office topOffice = await officeCtrl.GetOfficeWithMostCouriers();
+
+                        Console.WriteLine($"{topOffice.Id}. {topOffice.Name} - {topOffice.Couriers.Count} куриери");
+                        break;
+
+                    case "28":
+                        var allPackages = await packageCtrl.GetAllAsync();
+
+                        allPackages.ForEach(p => Console.WriteLine($"{p.Id}. {p.TrackingNumber}"));
+                        break;
+
+                    case "29":
+                        Console.Write("ID на пакет: ");
+                        int packageId = int.Parse(Console.ReadLine());
+
+                        var package = await packageCtrl.GetByIdAsync(packageId);
+                        Console.WriteLine($"{package.Id}. {package.TrackingNumber}");
+                        break;
+
+                    case "30":
+                        Console.Write("Номер за проследяване: ");
+                        string tracking = Console.ReadLine();
+
+                        Console.Write("Тип: ");
+                        string packageType = Console.ReadLine();
+
+                        Console.Write("Тегло: ");
+                        int weightInKg = int.Parse(Console.ReadLine());
+
+                        Console.Write("ID на клиент: ");
+                        int customerIdAdd = int.Parse(Console.ReadLine());
+
+                        Console.Write("Дата на доставка (гггг-мм-дд): ");
+                        DateTime deliveryDate = DateTime.Parse(Console.ReadLine());
+
+                        await packageCtrl.AddAsync(new Package
+                        {
+                            TrackingNumber = tracking,
+                            Type = packageType,
+                            WeightInKg = weightInKg,
+                            CustomerId = customerIdAdd,
+                            DeliveryDate = deliveryDate
+                        });
+
+                        Console.WriteLine("Пакетът е добавен!");
+                        break;
+
+                    case "31":
+                        Console.Write("ID на пакет: ");
+                        int packageIdUpdate = int.Parse(Console.ReadLine());
+
+                        var packageToUpdate = await packageCtrl.GetByIdAsync(packageIdUpdate);
+
+                        if (packageToUpdate != null)
+                        {
+                            Console.Write("Нов номер за проследяване: ");
+                            packageToUpdate.TrackingNumber = Console.ReadLine();
+
+                            Console.Write("Нов тип: ");
+                            packageToUpdate.Type = Console.ReadLine();
+
+                            Console.Write("Ново тегло: ");
+                            packageToUpdate.WeightInKg = int.Parse(Console.ReadLine());
+
+                            Console.Write("Нов клиент ID: ");
+                            packageToUpdate.CustomerId = int.Parse(Console.ReadLine());
+
+                            Console.Write("Нова дата за доставка (гггг-мм-дд): ");
+                            packageToUpdate.DeliveryDate = DateTime.Parse(Console.ReadLine());
+
+                            await packageCtrl.UpdateAsync(packageToUpdate);
+                            Console.WriteLine("Пакетът е обновен!");
+                        }
+                        else Console.WriteLine("Няма такъв пакет.");
+
+                        break;
+
+                    case "32":
+                        Console.Write("ID за изтриване: ");
+                        int packageIdDelete = int.Parse(Console.ReadLine());
+
+                        bool packageIsDeleted = await packageCtrl.DeleteAsync(packageIdDelete);
+
+                        if (packageIsDeleted)
+                        {
+                            Console.WriteLine("Успешно изтриване!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неуспешно изтриване!");
+                        }
+                        break;
+
+                    case "33":
+                        var late = await packageCtrl.GetLateDeliveries();
+
+                        late.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.DeliveryDate.ToString()}"));
+                        break;
+
+                    case "34":
+                        Console.Write("Тип: ");
+                        var type = Console.ReadLine();
+
+                        Console.Write("Минимално тегло: ");
+                        int minWeight = int.Parse(Console.ReadLine());
+
+                        Console.Write("Максимално тегло: ");
+                        int maxWeight = int.Parse(Console.ReadLine());
+
+                        List<Package> packagesSorted = await packageCtrl.GetPackagesByTypeAndWeight(type, minWeight, maxWeight);
+
+                        packagesSorted.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.Type}"));
+                        break;
+
+                    case "35":
+                        var unassigned = await packageCtrl.GetUnassignedPackages();
+
+                        unassigned.ForEach(p => Console.WriteLine($"{p.TrackingNumber} - {p.Type}"));
+                        break;
+
+                    case "36":
+                        var allVehicle = await vehicleCtrl.GetAllAsync();
+
+                        allVehicle.ForEach(v => Console.WriteLine($"{v.Id}. {v.Model} {v.PlateNumber}"));
+                        break;
+
+                    case "37":
+                        Console.Write("ID на превозно средство: ");
+                        int vehicleIdGet = int.Parse(Console.ReadLine());
+
+                        var v = await vehicleCtrl.GetByIdAsync(vehicleIdGet);
+
+                        Console.WriteLine($"{v.Id}. {v.Model}");
+                        break;
+
+                    case "38":
+                        Console.Write("Регистрационен номер: ");
+                        string plateNumber = Console.ReadLine();
+
+                        Console.Write("Модел на превозното средство: ");
+                        string model = Console.ReadLine();
+
+                        Console.Write("Вид превозното средство: ");
+                        string vehicleType = Console.ReadLine();
+
+                        await vehicleCtrl.AddAsync(new Vehicle
+                        {
+                            Type = vehicleType,
+                            PlateNumber = plateNumber,
+                            Model = model
+                        });
+
+                        Console.WriteLine("Добавено превозно средство!");
+                        break;
+
+                    case "39":
+                        Console.Write("ID на превозно средство: ");
+                        int vehicleIdUpd = int.Parse(Console.ReadLine());
+
+                        var vehToUpdate = await vehicleCtrl.GetByIdAsync(vehicleIdUpd);
+
+                        if (vehToUpdate != null)
+                        {
+                            Console.Write("Нов модел: ");
+                            vehToUpdate.Model = Console.ReadLine();
+
+                            await vehicleCtrl.UpdateAsync(vehToUpdate);
+                            Console.WriteLine("Обновено превозно средство!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Няма такова превозно средство.");
+                        }
+                        break;
+
+                    case "40":
+                        Console.Write("ID за изтриване: ");
+                        int vehicleIdDelete = int.Parse(Console.ReadLine());
+
+                        bool vehicleIsDeleted = await packageCtrl.DeleteAsync(vehicleIdDelete);
+
+                        if (vehicleIsDeleted)
+                        {
+                            Console.WriteLine("Успешно изтриване!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неуспешно изтриване!");
+                        }
+                        break;
+
+                    case "41":
+                        Console.Write("ID на превозно средство: ");
+                        int cvId = int.Parse(Console.ReadLine());
+
+                        List<Courier> cs = await vehicleCtrl.GetCouriersByVehicleId(cvId);
+                        cs.ForEach(c => Console.WriteLine($"{c.Id}. {c.Name}"));
+                        break;
+
+                    case "0":
+                        return;
+
+                    default:
+                        Console.WriteLine("Невалидна опция.");
+                        break;
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private void PrintNavigation()
+        { 
+            Console.WriteLine();
+            Console.WriteLine("=== Управление на Теди Експрес ===");
+            Console.WriteLine("= За куриери =");
+            Console.WriteLine("01. Списък всички");
+            Console.WriteLine("02. По ID");
+            Console.WriteLine("03. Добавяне");
+            Console.WriteLine("04. Актуализация");
+            Console.WriteLine("05. Изтриване");
+            Console.WriteLine("06. Превозни средства по куриер ID");
+            Console.WriteLine("07. Маршрути по име");
+            Console.WriteLine("08. Пакети по куриер ID");
+            Console.WriteLine();
+            Console.WriteLine("= За клиенти =");
+            Console.WriteLine("09.  Списък всички");
+            Console.WriteLine("10. По ID");
+            Console.WriteLine("11. Добавяне");
+            Console.WriteLine("12. Актуализация");
+            Console.WriteLine("13. Изтриване");
+            Console.WriteLine("14. Клиенти с активни доставки");
+            Console.WriteLine("15. Топ 5 по брой пакети");
+            Console.WriteLine("16. Клиенти по куриерско име");
+            Console.WriteLine();
+            Console.WriteLine("= За маршрути =");
+            Console.WriteLine("17. Списък всички");
+            Console.WriteLine("18. По ID");
+            Console.WriteLine("19. Добавяне");
+            Console.WriteLine("20. Актуализация");
+            Console.WriteLine("21. Изтриване");
+            Console.WriteLine();
+            Console.WriteLine("= За офиси =");
+            Console.WriteLine("22. Списък всички");
+            Console.WriteLine("23. По ID");
+            Console.WriteLine("24. Добавяне");
+            Console.WriteLine("25. Актуализация");
+            Console.WriteLine("26. Изтриване");
+            Console.WriteLine("27. Офис с най-много куриери");
+            Console.WriteLine();
+            Console.WriteLine("= За пакети =");
+            Console.WriteLine("28. Списък всички");
+            Console.WriteLine("29. По ID");
+            Console.WriteLine("30. Добавяне");
+            Console.WriteLine("31. Актуализация");
+            Console.WriteLine("32. Изтриване");
+            Console.WriteLine("33. Закъснели доставки");
+            Console.WriteLine("34. По тип и тегло");
+            Console.WriteLine("35. Неназначени");
+            Console.WriteLine();
+            Console.WriteLine("= За превозни средства =");
+            Console.WriteLine("36. Списък всички");
+            Console.WriteLine("37. По ID");
+            Console.WriteLine("38. Добавяне");
+            Console.WriteLine("39. Актуализация");
+            Console.WriteLine("40. Изтриване");
+            Console.WriteLine("41. Куриери по превозно ID");
+            Console.WriteLine();
+            Console.WriteLine("0. Изход");
+            Console.WriteLine();
+        }
     }
 }

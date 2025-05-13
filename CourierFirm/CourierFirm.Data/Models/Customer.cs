@@ -25,6 +25,9 @@ namespace CourierFirm.Data
         [Phone]
         public string PhoneNumber { get; set; } = null!;
 
+        [Required]
+        public string Address { get; set; } = null!;
+
         public ICollection<Package> Packages { get; set; } 
                 = new List<Package>();
     }

@@ -21,7 +21,8 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/customers.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/customers.txt";
+
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");
@@ -38,15 +39,16 @@ namespace CourierFirm.Core
 
                 customers.Add(new Customer
                 {
-                    Id = int.Parse(parts[0]),
-                    FirstName = parts[1],
-                    LastName = parts[2],
-                    Email = parts[3],
-                    PhoneNumber = parts[4]
+                    FirstName = parts[0],
+                    LastName = parts[1],
+                    Email = parts[2],
+                    PhoneNumber = parts[3],
+                    Address = parts[4]
                 });
             }
 
             await context.Customers.AddRangeAsync(customers);
+            
             await context.SaveChangesAsync();
         }
 
@@ -57,7 +59,7 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/offices.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/offices.txt";
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");
@@ -70,13 +72,12 @@ namespace CourierFirm.Core
             foreach (var line in lines)
             {
                 var parts = line.Split(';');
-                if (parts.Length != 3) continue;
+                if (parts.Length != 2) continue;
 
                 offices.Add(new Office
                 {
-                    Id = int.Parse(parts[0]),
-                    Name = parts[1],
-                    Location = parts[2]
+                    Name = parts[0],
+                    Location = parts[1]
                 });
             }
 
@@ -91,7 +92,7 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/vehicles.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/vehicles.txt";
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");
@@ -104,14 +105,13 @@ namespace CourierFirm.Core
             foreach (var line in lines)
             {
                 var parts = line.Split(';');
-                if (parts.Length != 4) continue;
+                if (parts.Length != 3) continue;
 
                 vehicles.Add(new Vehicle
                 {
-                    Id = int.Parse(parts[0]),
-                    Model = parts[1],
-                    PlateNumber = parts[2],
-                    Type = parts[3]
+                    Model = parts[0],
+                    PlateNumber = parts[1],
+                    Type = parts[2]
                 });
             }
 
@@ -126,7 +126,7 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/couriers.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/couriers.txt";
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");
@@ -139,14 +139,13 @@ namespace CourierFirm.Core
             foreach (var line in lines)
             {
                 var parts = line.Split(';');
-                if (parts.Length != 4) continue;
+                if (parts.Length != 3) continue;
 
                 couriers.Add(new Courier
                 {
-                    Id = int.Parse(parts[0]),
-                    Name = parts[1],
-                    OfficeId = int.Parse(parts[2]),
-                    VehicleId = int.Parse(parts[3])
+                    Name = parts[0],
+                    OfficeId = int.Parse(parts[1]),
+                    VehicleId = int.Parse(parts[2])
                 });
             }
 
@@ -161,7 +160,7 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/packages.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/packages.txt";
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");
@@ -178,13 +177,13 @@ namespace CourierFirm.Core
 
                 packages.Add(new Package
                 {
-                    Id = int.Parse(parts[0]),
-                    TrackingNumber = parts[1],
-                    WeightInKg = int.Parse(parts[2]),
-                    CustomerId = int.Parse(parts[3]),
-                    CourierId = int.Parse(parts[4]),
-                    Type = parts[5],
-                    DeliveryStatus = (DeliveryStatusType)int.Parse(parts[6]),
+                    TrackingNumber = parts[0],
+                    WeightInKg = int.Parse(parts[1]),
+                    CustomerId = int.Parse(parts[2]),
+                    CourierId = int.Parse(parts[3]),
+                    Type = parts[4],
+                    DeliveryStatus = (DeliveryStatusType)int.Parse(parts[5]),
+                    DeliveryAddress = parts[6],
                     DeliveryDate = DateTime.Parse(parts[7])
                 });
             }
@@ -200,7 +199,7 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/couriersVehicles.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/couriersVehicles.txt";
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");
@@ -233,7 +232,7 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/deliveryroutes.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/deliveryRoutes.txt";
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");
@@ -246,13 +245,12 @@ namespace CourierFirm.Core
             foreach (var line in lines)
             {
                 var parts = line.Split(';');
-                if (parts.Length != 3) continue;
+                if (parts.Length != 2) continue;
 
                 deliveryRoutes.Add(new DeliveryRoute
                 {
-                    Id = int.Parse(parts[0]),
-                    StartLocation = parts[1],
-                    EndLocation = parts[2]
+                    StartLocation = parts[0],
+                    EndLocation = parts[1]
                 });
             }
 
@@ -267,7 +265,7 @@ namespace CourierFirm.Core
                 return;
             }
 
-            string filePath = @"../../../../CourierFirm.Data/Data/deliveryroutes.txt";
+            string filePath = @"../../../../../CourierFirm.Data/Data/couriersDeliveryRoutes.txt";
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File not found: {filePath}");

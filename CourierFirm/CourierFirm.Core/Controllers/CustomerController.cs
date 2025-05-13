@@ -1,6 +1,7 @@
 ﻿using CourierFirm.Data;
 using CourierFirm.Data.Enum;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace CourierFirm.Core.Controllers
 {
@@ -73,16 +74,27 @@ namespace CourierFirm.Core.Controllers
         public async Task<List<Customer>> GetCustomersWithActiveDeliveries()
         {
             return await _context.Customers
-                .Where(c => c.Packages.Any(p => p.DeliveryStatus != DeliveryStatusType.Delivered))
                 .Include(c => c.Packages)
+                .Where(c => c.Packages.Any(p => p.DeliveryStatus != DeliveryStatusType.Delivered))
                 .ToListAsync();
         }
 
         public async Task<List<Customer>> GetTopFiveCustomersByPackagesCount()
         {
             return await _context.Customers
+                .Include(c => c.Packages)
                 .OrderByDescending(c => c.Packages.Count)
                 .Take(5)
+                .ToListAsync();
+        }
+
+        public async Task<List<Customer>> GetCustomersByCourierName(string courierName)
+        {
+            return await _context.Packages
+                .Include(p => p.Courier)
+                .Include(p => p.Customer)
+                .Where(p => p.Courier.Name == courierName)
+                .Select(p => p.Customer)
                 .ToListAsync();
         }
     }

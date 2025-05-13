@@ -27,6 +27,9 @@ namespace CourierFirm.Data
 
         public string? Type { get; set; }
 
+        [Required]
+        public string DeliveryAddress { get; set; } = null!;
+
         public DeliveryStatusType DeliveryStatus { get; set; }
 
         public DateTime? DeliveryDate { get; set; }

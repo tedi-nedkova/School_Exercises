@@ -1,5 +1,5 @@
-﻿1;Sofia Center;bul. Vitosha 100
-2;Plovdiv South;ul. Kapitan Raycho 22
-3;Varna East;ul. Vladislav Varnenchik 45
-4;Burgas Central;ul. Aleksandrovska 30
-5;Ruse North;ul. Tsar Osvoboditel 12
+﻿Sofia Center;bul. Vitosha 100
+Plovdiv South;ul. Kapitan Raycho 22
+Varna East;ul. Vladislav Varnenchik 45
+Burgas Central;ul. Aleksandrovska 30
+Ruse North;ul. Tsar Osvoboditel 12
