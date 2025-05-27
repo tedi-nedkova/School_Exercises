@@ -21,6 +21,14 @@ namespace NationalPark.Data
 
         }
 
+        public DbSet<Facility> Facilities { get; set; }
+
+        public DbSet<PlantSpecies> PlantsSpecies { get; set; }
+
+        public DbSet<Zone> Zones { get; set; }
+
+        public DbSet<ZonePlant> ZonesPlants { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=STUDENT19;Database=NationalPark;Integrated Security=true;TrustServerCertificate=true;");

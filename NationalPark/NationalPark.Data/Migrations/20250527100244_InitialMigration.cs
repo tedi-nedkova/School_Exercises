@@ -12,7 +12,7 @@ namespace NationalPark.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "plantspecies",
+                name: "plantsspecies",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -24,11 +24,11 @@ namespace NationalPark.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_plantspecies", x => x.id);
+                    table.PrimaryKey("PK_plantsspecies", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "zone",
+                name: "zones",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -39,11 +39,11 @@ namespace NationalPark.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_zone", x => x.id);
+                    table.PrimaryKey("PK_zones", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "facility",
+                name: "facilities",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -56,17 +56,17 @@ namespace NationalPark.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_facility", x => x.id);
+                    table.PrimaryKey("PK_facilities", x => x.id);
                     table.ForeignKey(
-                        name: "FK_facility_zone_zoneid",
+                        name: "FK_facilities_zones_zoneid",
                         column: x => x.zoneid,
-                        principalTable: "zone",
+                        principalTable: "zones",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "zoneplant",
+                name: "zonesplants",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
@@ -77,47 +77,47 @@ namespace NationalPark.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_zoneplant", x => x.id);
+                    table.PrimaryKey("PK_zonesplants", x => x.id);
                     table.CheckConstraint("CK_ZonePlant_Density", "[density] IN ('rare', 'medium', 'common')");
                     table.ForeignKey(
-                        name: "FK_zoneplant_plantspecies_plantid",
+                        name: "FK_zonesplants_plantsspecies_plantid",
                         column: x => x.plantid,
-                        principalTable: "plantspecies",
+                        principalTable: "plantsspecies",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_zoneplant_zone_zoneid",
+                        name: "FK_zonesplants_zones_zoneid",
                         column: x => x.zoneid,
-                        principalTable: "zone",
+                        principalTable: "zones",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_facility_zoneid",
-                table: "facility",
+                name: "IX_facilities_zoneid",
+                table: "facilities",
                 column: "zoneid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_plantspecies_latinname",
-                table: "plantspecies",
+                name: "IX_plantsspecies_latinname",
+                table: "plantsspecies",
                 column: "latinname",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_plantspecies_name",
-                table: "plantspecies",
+                name: "IX_plantsspecies_name",
+                table: "plantsspecies",
                 column: "name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_zoneplant_plantid",
-                table: "zoneplant",
+                name: "IX_zonesplants_plantid",
+                table: "zonesplants",
                 column: "plantid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_zoneplant_zoneid_plantid",
-                table: "zoneplant",
+                name: "IX_zonesplants_zoneid_plantid",
+                table: "zonesplants",
                 columns: new[] { "zoneid", "plantid" },
                 unique: true);
         }
@@ -126,16 +126,16 @@ namespace NationalPark.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "facility");
+                name: "facilities");
 
             migrationBuilder.DropTable(
-                name: "zoneplant");
+                name: "zonesplants");
 
             migrationBuilder.DropTable(
-                name: "plantspecies");
+                name: "plantsspecies");
 
             migrationBuilder.DropTable(
-                name: "zone");
+                name: "zones");
         }
     }
 }

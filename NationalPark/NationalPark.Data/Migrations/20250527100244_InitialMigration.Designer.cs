@@ -12,7 +12,7 @@ using NationalPark.Data;
 namespace NationalPark.Data.Migrations
 {
     [DbContext(typeof(NationalParkDbContext))]
-    [Migration("20250527053556_InitialMigration")]
+    [Migration("20250527100244_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -63,7 +63,7 @@ namespace NationalPark.Data.Migrations
 
                     b.HasIndex("ZoneId");
 
-                    b.ToTable("facility");
+                    b.ToTable("facilities");
                 });
 
             modelBuilder.Entity("NationalPark.Data.Models.PlantSpecies", b =>
@@ -102,7 +102,7 @@ namespace NationalPark.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("plantspecies");
+                    b.ToTable("plantsspecies");
                 });
 
             modelBuilder.Entity("NationalPark.Data.Models.Zone", b =>
@@ -131,7 +131,7 @@ namespace NationalPark.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("zone");
+                    b.ToTable("zones");
                 });
 
             modelBuilder.Entity("NationalPark.Data.Models.ZonePlant", b =>
@@ -164,7 +164,7 @@ namespace NationalPark.Data.Migrations
                     b.HasIndex("ZoneId", "PlantId")
                         .IsUnique();
 
-                    b.ToTable("zoneplant", t =>
+                    b.ToTable("zonesplants", t =>
                         {
                             t.HasCheckConstraint("CK_ZonePlant_Density", "[density] IN ('rare', 'medium', 'common')");
                         });
