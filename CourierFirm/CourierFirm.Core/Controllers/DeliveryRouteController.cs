@@ -66,5 +66,16 @@ namespace CourierFirm.Core.Controllers
 
             return true;
         }
+
+        public async Task<List<DeliveryRoute>> GetDeliveryRouteByCourierName(string courierName)
+        {
+
+            return await _context.CouriersDeliveryRoutes
+                 .Include(cdr => cdr.Courier)
+                 .Include(cdr => cdr.DeliveryRoute)
+                 .Where(cdr => cdr.Courier.Name == courierName)
+                 .Select(cdr => cdr.DeliveryRoute)
+                 .ToListAsync();
+        }
     }
 }

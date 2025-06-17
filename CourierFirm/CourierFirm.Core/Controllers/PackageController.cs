@@ -94,5 +94,11 @@ namespace CourierFirm.Core.Controllers
                 .ToListAsync();
         }
 
+        public async Task<List<Package>> GetPackagesByCourierId(int courierId)
+        {
+            return await _context.Packages
+                 .Where(p => p.CourierId == courierId)
+                 .ToListAsync();
+        }
     }
 }

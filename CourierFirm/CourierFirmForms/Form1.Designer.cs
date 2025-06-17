@@ -54,9 +54,8 @@
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(2794, 219);
+            panel1.Size = new Size(1718, 137);
             panel1.TabIndex = 0;
             // 
             // label1
@@ -64,10 +63,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Javanese Text", 64.875F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(1007, -56);
-            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Location = new Point(620, -35);
             label1.Name = "label1";
-            label1.Size = new Size(893, 393);
+            label1.Size = new Size(565, 247);
             label1.TabIndex = 4;
             label1.Text = "Welcome!";
             label1.Click += label1_Click;
@@ -76,30 +74,27 @@
             // 
             panel2.BackColor = Color.FromArgb(77, 122, 98);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 1471);
-            panel2.Margin = new Padding(5);
+            panel2.Location = new Point(0, 969);
             panel2.Name = "panel2";
-            panel2.Size = new Size(2794, 138);
+            panel2.Size = new Size(1718, 86);
             panel2.TabIndex = 1;
             // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(158, 217, 187);
             panel3.Dock = DockStyle.Left;
-            panel3.Location = new Point(0, 219);
-            panel3.Margin = new Padding(5);
+            panel3.Location = new Point(0, 137);
             panel3.Name = "panel3";
-            panel3.Size = new Size(289, 1252);
+            panel3.Size = new Size(178, 832);
             panel3.TabIndex = 2;
             // 
             // panel4
             // 
             panel4.BackColor = Color.FromArgb(158, 217, 187);
             panel4.Dock = DockStyle.Right;
-            panel4.Location = new Point(2505, 219);
-            panel4.Margin = new Padding(5);
+            panel4.Location = new Point(1540, 137);
             panel4.Name = "panel4";
-            panel4.Size = new Size(289, 1252);
+            panel4.Size = new Size(178, 832);
             panel4.TabIndex = 3;
             // 
             // button1
@@ -107,11 +102,10 @@
             button1.BackColor = Color.FromArgb(82, 122, 101);
             button1.Font = new Font("Javanese Text", 25.875F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(1072, 873);
-            button1.Margin = new Padding(5);
+            button1.Location = new Point(660, 544);
             button1.Name = "button1";
-            button1.Padding = new Padding(30);
-            button1.Size = new Size(676, 189);
+            button1.Padding = new Padding(18, 19, 18, 19);
+            button1.Size = new Size(416, 118);
             button1.TabIndex = 4;
             button1.Text = "🔍 Look into it";
             button1.UseVisualStyleBackColor = false;
@@ -123,11 +117,10 @@
             label2.BorderStyle = BorderStyle.FixedSingle;
             label2.Font = new Font("Impact", 37.875F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(65, 97, 80);
-            label2.Location = new Point(832, 55);
-            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Location = new Point(512, 34);
             label2.Name = "label2";
-            label2.Padding = new Padding(150, 60, 50, 0);
-            label2.Size = new Size(858, 249);
+            label2.Padding = new Padding(92, 38, 31, 0);
+            label2.Size = new Size(529, 156);
             label2.TabIndex = 5;
             label2.Text = "Courier Firm";
             label2.Click += label2_Click;
@@ -136,19 +129,21 @@
             // 
             panel5.BackColor = Color.FromArgb(237, 250, 243);
             panel5.Controls.Add(label2);
-            panel5.Location = new Point(162, 219);
+            panel5.Location = new Point(100, 137);
+            panel5.Margin = new Padding(2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(2465, 350);
+            panel5.Size = new Size(1517, 219);
             panel5.TabIndex = 6;
             // 
             // button2
             // 
             button2.BackColor = Color.FromArgb(142, 145, 144);
-            button2.Font = new Font("Miriam Libre", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(448, 620);
+            button2.Location = new Point(267, 420);
+            button2.Margin = new Padding(2);
             button2.Name = "button2";
-            button2.Size = new Size(485, 163);
+            button2.Size = new Size(298, 102);
             button2.TabIndex = 7;
             button2.Text = "📬 Couriers";
             button2.UseVisualStyleBackColor = false;
@@ -158,11 +153,12 @@
             // button3
             // 
             button3.BackColor = Color.FromArgb(142, 145, 144);
-            button3.Font = new Font("Miriam Libre", 18F, FontStyle.Bold, GraphicsUnit.Point, 177);
+            button3.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 177);
             button3.ForeColor = Color.White;
-            button3.Location = new Point(448, 826);
+            button3.Location = new Point(267, 548);
+            button3.Margin = new Padding(2);
             button3.Name = "button3";
-            button3.Size = new Size(485, 163);
+            button3.Size = new Size(298, 102);
             button3.TabIndex = 8;
             button3.Text = "👨‍💼🗺️ Courier's Delivery routes";
             button3.UseVisualStyleBackColor = false;
@@ -172,62 +168,74 @@
             // button4
             // 
             button4.BackColor = Color.FromArgb(142, 145, 144);
-            button4.Font = new Font("Miriam Libre", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button4.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button4.ForeColor = Color.White;
-            button4.Location = new Point(448, 1046);
+            button4.Location = new Point(267, 686);
+            button4.Margin = new Padding(2);
             button4.Name = "button4";
-            button4.Size = new Size(485, 163);
+            button4.Size = new Size(298, 102);
             button4.TabIndex = 9;
             button4.Text = "👨‍💼🚚 Courier's Vehicles";
             button4.UseVisualStyleBackColor = false;
             button4.Visible = false;
+            button4.Click += button4_Click;
             // 
             // button5
             // 
             button5.BackColor = Color.FromArgb(142, 145, 144);
-            button5.Font = new Font("Miriam Libre", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button5.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button5.ForeColor = Color.White;
-            button5.Location = new Point(448, 1260);
+            button5.Location = new Point(267, 820);
+            button5.Margin = new Padding(2);
             button5.Name = "button5";
-            button5.Size = new Size(485, 163);
+            button5.Size = new Size(298, 102);
             button5.TabIndex = 10;
             button5.Text = "👥Customer";
             button5.UseVisualStyleBackColor = false;
             button5.Visible = false;
+            button5.Click += button5_Click;
             // 
             // button6
             // 
             button6.BackColor = Color.FromArgb(142, 145, 144);
-            button6.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button6.Location = new Point(1935, 648);
+            button6.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button6.ForeColor = Color.White;
+            button6.Location = new Point(1166, 420);
+            button6.Margin = new Padding(2);
             button6.Name = "button6";
-            button6.Size = new Size(373, 119);
+            button6.Size = new Size(298, 102);
             button6.TabIndex = 11;
-            button6.Text = "button6";
+            button6.Text = "🗺️ Delivery Route";
             button6.UseVisualStyleBackColor = false;
             button6.Visible = false;
+            button6.Click += button6_Click;
             // 
             // button7
             // 
             button7.BackColor = Color.FromArgb(142, 145, 144);
-            button7.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button7.Location = new Point(1935, 854);
+            button7.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button7.ForeColor = Color.White;
+            button7.Location = new Point(1166, 546);
+            button7.Margin = new Padding(2);
             button7.Name = "button7";
-            button7.Size = new Size(373, 119);
+            button7.Size = new Size(298, 102);
             button7.TabIndex = 12;
-            button7.Text = "button7";
+            button7.Text = "🏢 Offices";
             button7.UseVisualStyleBackColor = false;
             button7.Visible = false;
+            button7.Click += button7_Click;
             // 
             // button8
             // 
             button8.BackColor = Color.FromArgb(142, 145, 144);
-            button8.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button8.Location = new Point(1935, 1074);
+            button8.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button8.ForeColor = Color.White;
+            button8.Location = new Point(1166, 686);
+            button8.Margin = new Padding(2);
             button8.Name = "button8";
-            button8.Size = new Size(373, 119);
+            button8.Size = new Size(298, 102);
             button8.TabIndex = 13;
-            button8.Text = "button8";
+            button8.Text = "📦Packages";
             button8.UseVisualStyleBackColor = false;
             button8.Visible = false;
             button8.Click += button8_Click;
@@ -235,23 +243,26 @@
             // button9
             // 
             button9.BackColor = Color.FromArgb(142, 145, 144);
-            button9.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button9.Location = new Point(1935, 1288);
+            button9.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button9.ForeColor = Color.White;
+            button9.Location = new Point(1166, 820);
+            button9.Margin = new Padding(2);
             button9.Name = "button9";
-            button9.Size = new Size(373, 119);
+            button9.Size = new Size(298, 102);
             button9.TabIndex = 14;
-            button9.Text = "button9";
+            button9.Text = "🚚 Vehicles";
             button9.UseVisualStyleBackColor = false;
             button9.Visible = false;
+            button9.Click += button9_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             AutoValidate = AutoValidate.EnableAllowFocusChange;
             BackColor = Color.White;
-            ClientSize = new Size(2794, 1609);
+            ClientSize = new Size(1718, 1055);
             Controls.Add(button9);
             Controls.Add(button8);
             Controls.Add(button7);
@@ -266,7 +277,6 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(panel5);
-            Margin = new Padding(5);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
