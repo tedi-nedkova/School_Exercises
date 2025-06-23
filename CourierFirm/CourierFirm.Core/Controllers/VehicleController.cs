@@ -69,14 +69,13 @@ namespace CourierFirm.Core.Controllers
             return true;
         }
 
-        public async Task<List<Vehicle>> GetVehiclesByCourierId(int courierId)
+        public async Task<List<Courier>> GetCouriersByVehicleId(int vehicleId)
         {
+
             return await _context.CouriersVehicle
-                .Where(cv => cv.CourierId == courierId)
-                .Select(cv => cv.Vehicle)
+                .Where(cv => cv.VehicleId == vehicleId)
+                .Select(cv => cv.Courier)
                 .ToListAsync();
         }
-
-
     }
 }

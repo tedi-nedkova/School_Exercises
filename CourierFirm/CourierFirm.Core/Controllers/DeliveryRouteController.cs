@@ -36,6 +36,7 @@ namespace CourierFirm.Core.Controllers
         public async Task<bool> UpdateAsync(DeliveryRoute route)
         {
             var existingDeliveryRoute = await _context.DeliveryRoutes.FindAsync(route.Id);
+
             if (existingDeliveryRoute == null)
             {
                 return false;
@@ -65,17 +66,6 @@ namespace CourierFirm.Core.Controllers
             await _context.SaveChangesAsync();
 
             return true;
-        }
-
-        public async Task<List<DeliveryRoute>> GetDeliveryRouteByCourierName(string courierName)
-        {
-
-            return await _context.CouriersDeliveryRoutes
-                 .Include(cdr => cdr.Courier)
-                 .Include(cdr => cdr.DeliveryRoute)
-                 .Where(cdr => cdr.Courier.Name == courierName)
-                 .Select(cdr => cdr.DeliveryRoute)
-                 .ToListAsync();
         }
     }
 }

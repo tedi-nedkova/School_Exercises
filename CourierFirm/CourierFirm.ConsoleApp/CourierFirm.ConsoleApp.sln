@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourierFirm.ConsoleApp", "CourierFirm.ConsoleApp\CourierFirm.ConsoleApp.csproj", "{F06428F4-D096-4D66-A888-B3F3B2BD58FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourierFirm.ConsoleApp", "CourierFirm.ConsoleApp\CourierFirm.ConsoleApp.csproj", "{F06428F4-D096-4D66-A888-B3F3B2BD58FA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{37980326-F8A1-4F58-814C-7E6C553667E7} = {37980326-F8A1-4F58-814C-7E6C553667E7}
 		{7E3E03D3-08A2-4417-803A-1D6AB8581C0F} = {7E3E03D3-08A2-4417-803A-1D6AB8581C0F}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourierFirm.Core", "..\CourierFirm.Core\CourierFirm.Core.csproj", "{7E3E03D3-08A2-4417-803A-1D6AB8581C0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourierFirm.Core", "..\CourierFirm.Core\CourierFirm.Core.csproj", "{7E3E03D3-08A2-4417-803A-1D6AB8581C0F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourierFirm.Data", "..\CourierFirm.Data\CourierFirm.Data.csproj", "{37980326-F8A1-4F58-814C-7E6C553667E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourierFirmForms", "..\CourierFirmForms\CourierFirmForms.csproj", "{758C81EE-E35C-445C-B65E-CA8ADD97369E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourierFirm.Data", "..\CourierFirm.Data\CourierFirm.Data.csproj", "{37980326-F8A1-4F58-814C-7E6C553667E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,15 +31,8 @@ Global
 		{37980326-F8A1-4F58-814C-7E6C553667E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37980326-F8A1-4F58-814C-7E6C553667E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37980326-F8A1-4F58-814C-7E6C553667E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{758C81EE-E35C-445C-B65E-CA8ADD97369E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{758C81EE-E35C-445C-B65E-CA8ADD97369E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{758C81EE-E35C-445C-B65E-CA8ADD97369E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{758C81EE-E35C-445C-B65E-CA8ADD97369E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8CEC4AFA-CB49-4550-83ED-F66072F89595}
 	EndGlobalSection
 EndGlobal

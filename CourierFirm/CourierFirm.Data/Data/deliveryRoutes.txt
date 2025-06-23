@@ -1,6 +1,0 @@
-﻿Sofia ul. Vasil Levski 23;Plovdiv ul. Stefan Karadzha 20
-Plovdiv ul. Panaiot Pipkov 56;Varna ul.General Gurkov 44
-Varna ul. Filip Totio 1;Burgas ul.Georgi Rakovski 40
-Burgas ul. Stefan Stambolov 30;Ruse ul. Alexander Batenberg 18
-Ruse ul. Alexander Stamboliiski 5;Stara Zagora ul. Petur Beron 3
-

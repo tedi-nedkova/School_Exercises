@@ -31,6 +31,7 @@ namespace CourierFirm.Core.Controllers
         public async Task AddAsync(Customer customer)
         {
             await _context.Customers.AddAsync(customer);
+
             await _context.SaveChangesAsync();
         }
 

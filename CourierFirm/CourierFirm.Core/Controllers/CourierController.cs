@@ -71,13 +71,30 @@ namespace CourierFirm.Core.Controllers
             return true;
         }
 
+        public async Task<List<Vehicle>> GetVehiclesByCourierId(int courierId)
+        {
+            return await _context.CouriersVehicle
+                .Where(cv => cv.CourierId == courierId)
+                .Select(cv => cv.Vehicle)
+                .ToListAsync();
+        }
 
-        public async Task<List<Courier>> GetCouriersByVehicleId(int vehicleId)
+        public async Task<List<DeliveryRoute>> GetDeliveryRouteByCourierName(string courierName)
         {
 
-            return await _context.CouriersVehicle
-                .Where(cv => cv.VehicleId == vehicleId)
-                .Select(cv => cv.Courier)
+           return await _context.CouriersDeliveryRoutes
+                .Include(cdr => cdr.Courier)
+                .Include(cdr => cdr.DeliveryRoute)
+                .Where(cdr => cdr.Courier.Name == courierName)
+                .Select(cdr => cdr.DeliveryRoute)
+                .ToListAsync();
+        }
+
+        public async Task<List<Package>> GetPackagesByCourierId(int courierId)
+        {
+           return await _context.Packages
+                .Include(p => p.Courier)
+                .Where(p => p.CourierId == courierId)
                 .ToListAsync();
         }
     }
