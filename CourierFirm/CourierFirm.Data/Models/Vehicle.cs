@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CourierFirm.Data.Models;
+using System.ComponentModel.DataAnnotations;
 using static CourierFirm.Data.Constraints.ModelConstraints.VehicleConstraints;
 
 namespace CourierFirm.Data
@@ -19,6 +20,7 @@ namespace CourierFirm.Data
         [MaxLength(TypeMaxLength)]
         public string Type { get; set; } = null!;
 
-        public ICollection<Courier> Couriers { get; set; } = new List<Courier>();
+        public ICollection<CourierVehicle> CourierVehicles { get; set; } 
+                = new List<CourierVehicle>();
     }
 }

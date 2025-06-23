@@ -140,30 +140,6 @@ namespace CourierFirm.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourierVehicle",
-                columns: table => new
-                {
-                    CouriersId = table.Column<int>(type: "int", nullable: false),
-                    VehiclesId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourierVehicle", x => new { x.CouriersId, x.VehiclesId });
-                    table.ForeignKey(
-                        name: "FK_CourierVehicle_Couriers_CouriersId",
-                        column: x => x.CouriersId,
-                        principalTable: "Couriers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CourierVehicle_Vehicles_VehiclesId",
-                        column: x => x.VehiclesId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Packages",
                 columns: table => new
                 {
@@ -211,11 +187,6 @@ namespace CourierFirm.Data.Migrations
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourierVehicle_VehiclesId",
-                table: "CourierVehicle",
-                column: "VehiclesId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Packages_CourierId",
                 table: "Packages",
                 column: "CourierId");
@@ -234,9 +205,6 @@ namespace CourierFirm.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CouriersVehicles");
-
-            migrationBuilder.DropTable(
-                name: "CourierVehicle");
 
             migrationBuilder.DropTable(
                 name: "Packages");

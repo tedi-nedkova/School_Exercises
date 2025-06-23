@@ -18,7 +18,7 @@ namespace CourierFirm.Data
 
         public DbSet<Courier> Couriers { get; set; }
         public DbSet<CourierDeliveryRoute> CouriersDeliveryRoutes { get; set; }
-        public DbSet<CourierVehicle> CouriersVehicle {  get; set; }
+        public DbSet<CourierVehicle> CouriersVehicles {  get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<DeliveryRoute> DeliveryRoutes { get; set; }
         public DbSet<Office> Offices { get; set; }

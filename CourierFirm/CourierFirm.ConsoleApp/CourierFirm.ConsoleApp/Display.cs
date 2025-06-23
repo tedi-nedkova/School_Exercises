@@ -64,7 +64,7 @@ namespace CourierFirm.ConsoleApp
                     case "1":
                         List<Courier> allCouriers = await courierCtrl.GetAllAsync();
                         
-                        allCouriers.ForEach(c => Console.WriteLine($"{c.Id}. {c.Name} ({c.Office.Name}, {c.Vehicle.Model})"));
+                        allCouriers.ForEach(c => Console.WriteLine($"{c.Id}. {c.Name} ({c.Office.Name})"));
                         break;
 
                     case "2":
@@ -90,14 +90,10 @@ namespace CourierFirm.ConsoleApp
                         Console.Write("Офис ID: ");
                         int officeId = int.Parse(Console.ReadLine());
 
-                        Console.Write("Превозно средство ID: ");
-                        int vehicleId = int.Parse(Console.ReadLine());
-
                         await courierCtrl.AddAsync(new Courier
                         {
                             Name = name,
                             OfficeId = officeId,
-                            VehicleId = vehicleId
                         });
 
                         Console.WriteLine("Куриера е добавен!");
@@ -117,9 +113,6 @@ namespace CourierFirm.ConsoleApp
                             Console.Write("Ново Office ID: ");
                             exist.OfficeId = int.Parse(Console.ReadLine());
 
-                            Console.Write("Ново Vehicle ID: ");
-                            exist.VehicleId = int.Parse(Console.ReadLine());
-
                             await courierCtrl.UpdateAsync(exist);
 
                             Console.WriteLine("Обновено успешно.");
@@ -130,7 +123,7 @@ namespace CourierFirm.ConsoleApp
                         Console.Write("ID на куриер: ");
                         int courierVhId = int.Parse(Console.ReadLine());
 
-                        List<Vehicle> vehicles = await courierCtrl.GetVehiclesByCourierId(courierVhId);
+                        List<Vehicle> vehicles = await vehicleCtrl.GetVehiclesByCourierId(courierVhId);
 
                         if (vehicles.Count == 0)
                         {
@@ -145,7 +138,7 @@ namespace CourierFirm.ConsoleApp
                         Console.Write("Име на куриер: ");
                         string courierNameRoute = Console.ReadLine();
 
-                        List<DeliveryRoute> routes = await courierCtrl.GetDeliveryRouteByCourierName(courierNameRoute);
+                        List<DeliveryRoute> routes = await routeCtrl.GetDeliveryRouteByCourierName(courierNameRoute);
 
                         if (routes.Count == 0)
                         {
@@ -159,7 +152,7 @@ namespace CourierFirm.ConsoleApp
                         Console.Write("ID на куриер: ");
                         int courierIdPck = int.Parse(Console.ReadLine());
 
-                        List<Package> packages = await courierCtrl.GetPackagesByCourierId(courierIdPck);
+                        List<Package> packages = await packageCtrl.GetPackagesByCourierId(courierIdPck);
 
                         if (packages.Count == 0)
                         {
@@ -676,7 +669,7 @@ namespace CourierFirm.ConsoleApp
                         Console.Write("ID на превозно средство: ");
                         int cvId = int.Parse(Console.ReadLine());
 
-                        List<Courier> cs = await vehicleCtrl.GetCouriersByVehicleId(cvId);
+                        List<Courier> cs = await courierCtrl.GetCouriersByVehicleId(cvId);
 
                         if (cs.Count == 0)
                         {

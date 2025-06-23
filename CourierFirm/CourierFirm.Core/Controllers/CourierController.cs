@@ -1,4 +1,5 @@
 ﻿using CourierFirm.Data;
+using CourierFirm.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourierFirm.Core.Controllers
@@ -16,7 +17,7 @@ namespace CourierFirm.Core.Controllers
         {
             return await _context.Couriers
                 .Include(c => c.Office)
-                .Include(c => c.Vehicle)
+                .Include(c => c.CourierVehicles)
                 .ToListAsync();
         }
 
@@ -24,7 +25,7 @@ namespace CourierFirm.Core.Controllers
         {
             return await _context.Couriers
                 .Include(c => c.Office)
-                .Include(c => c.Vehicle)
+                .Include(c => c.CourierVehicles)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
@@ -46,7 +47,6 @@ namespace CourierFirm.Core.Controllers
 
             existingCourier.Name = courier.Name;
             existingCourier.OfficeId = courier.OfficeId;
-            existingCourier.VehicleId = courier.VehicleId;
 
             _context.Couriers.Update(existingCourier);
 
@@ -71,31 +71,27 @@ namespace CourierFirm.Core.Controllers
             return true;
         }
 
-        public async Task<List<Vehicle>> GetVehiclesByCourierId(int courierId)
+        public async Task AssignCouriersVehicle(int vehicleId, int courierId)
         {
-            return await _context.CouriersVehicle
-                .Where(cv => cv.CourierId == courierId)
-                .Select(cv => cv.Vehicle)
+            CourierVehicle courierVehicle = new CourierVehicle() 
+            { 
+                VehicleId = vehicleId,
+                CourierId = courierId
+            };
+
+             _context.CouriersVehicles.Add(courierVehicle);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Courier>> GetCouriersByVehicleId(int vehicleId)
+        {
+
+            return await _context.CouriersVehicles
+                .Where(cv => cv.VehicleId == vehicleId)
+                .Select(cv => cv.Courier)
                 .ToListAsync();
         }
 
-        public async Task<List<DeliveryRoute>> GetDeliveryRouteByCourierName(string courierName)
-        {
-
-           return await _context.CouriersDeliveryRoutes
-                .Include(cdr => cdr.Courier)
-                .Include(cdr => cdr.DeliveryRoute)
-                .Where(cdr => cdr.Courier.Name == courierName)
-                .Select(cdr => cdr.DeliveryRoute)
-                .ToListAsync();
-        }
-
-        public async Task<List<Package>> GetPackagesByCourierId(int courierId)
-        {
-           return await _context.Packages
-                .Include(p => p.Courier)
-                .Where(p => p.CourierId == courierId)
-                .ToListAsync();
-        }
     }
 }

@@ -38,9 +38,6 @@ namespace CourierFirm.Data.Migrations
                     b.Property<int>("OfficeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VehicleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OfficeId");
@@ -134,7 +131,7 @@ namespace CourierFirm.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("CouriersVehicle");
+                    b.ToTable("CouriersVehicles");
                 });
 
             modelBuilder.Entity("CourierFirm.Data.Office", b =>
@@ -239,15 +236,7 @@ namespace CourierFirm.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourierFirm.Data.Vehicle", "Vehicle")
-                        .WithMany("Couriers")
-                        .HasForeignKey("OfficeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Office");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("CourierFirm.Data.Models.CourierDeliveryRoute", b =>
@@ -272,13 +261,13 @@ namespace CourierFirm.Data.Migrations
             modelBuilder.Entity("CourierFirm.Data.Models.CourierVehicle", b =>
                 {
                     b.HasOne("CourierFirm.Data.Courier", "Courier")
-                        .WithMany()
+                        .WithMany("CourierVehicles")
                         .HasForeignKey("CourierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CourierFirm.Data.Vehicle", "Vehicle")
-                        .WithMany()
+                        .WithMany("CourierVehicles")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -311,6 +300,8 @@ namespace CourierFirm.Data.Migrations
                 {
                     b.Navigation("CourierDeliveryRoutes");
 
+                    b.Navigation("CourierVehicles");
+
                     b.Navigation("Packages");
                 });
 
@@ -331,7 +322,7 @@ namespace CourierFirm.Data.Migrations
 
             modelBuilder.Entity("CourierFirm.Data.Vehicle", b =>
                 {
-                    b.Navigation("Couriers");
+                    b.Navigation("CourierVehicles");
                 });
 #pragma warning restore 612, 618
         }

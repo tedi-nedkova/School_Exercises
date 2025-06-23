@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourierFirm.Data.Migrations
 {
     [DbContext(typeof(CourierFirmDbContext))]
-    [Migration("20250620114106_InitialMigration")]
+    [Migration("20250623151003_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace CourierFirm.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.6")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -231,21 +231,6 @@ namespace CourierFirm.Data.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("CourierVehicle", b =>
-                {
-                    b.Property<int>("CouriersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehiclesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CouriersId", "VehiclesId");
-
-                    b.HasIndex("VehiclesId");
-
-                    b.ToTable("CourierVehicle");
-                });
-
             modelBuilder.Entity("CourierFirm.Data.Courier", b =>
                 {
                     b.HasOne("CourierFirm.Data.Office", "Office")
@@ -279,13 +264,13 @@ namespace CourierFirm.Data.Migrations
             modelBuilder.Entity("CourierFirm.Data.Models.CourierVehicle", b =>
                 {
                     b.HasOne("CourierFirm.Data.Courier", "Courier")
-                        .WithMany()
+                        .WithMany("CourierVehicles")
                         .HasForeignKey("CourierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CourierFirm.Data.Vehicle", "Vehicle")
-                        .WithMany()
+                        .WithMany("CourierVehicles")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -314,24 +299,11 @@ namespace CourierFirm.Data.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("CourierVehicle", b =>
-                {
-                    b.HasOne("CourierFirm.Data.Courier", null)
-                        .WithMany()
-                        .HasForeignKey("CouriersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CourierFirm.Data.Vehicle", null)
-                        .WithMany()
-                        .HasForeignKey("VehiclesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CourierFirm.Data.Courier", b =>
                 {
                     b.Navigation("CourierDeliveryRoutes");
+
+                    b.Navigation("CourierVehicles");
 
                     b.Navigation("Packages");
                 });
@@ -349,6 +321,11 @@ namespace CourierFirm.Data.Migrations
             modelBuilder.Entity("CourierFirm.Data.Office", b =>
                 {
                     b.Navigation("Couriers");
+                });
+
+            modelBuilder.Entity("CourierFirm.Data.Vehicle", b =>
+                {
+                    b.Navigation("CourierVehicles");
                 });
 #pragma warning restore 612, 618
         }

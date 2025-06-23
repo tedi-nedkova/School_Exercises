@@ -15,14 +15,12 @@ namespace CourierFirm.Core.Controllers
         public async Task<List<Vehicle>> GetAllAsync()
         {
             return await _context.Vehicles
-                .Include(v => v.Couriers)
                 .ToListAsync();
         }
 
         public async Task<Vehicle?> GetByIdAsync(int id)
         {
             return await _context.Vehicles
-                .Include(v => v.Couriers)
                 .FirstOrDefaultAsync(v => v.Id == id);
         }
 
@@ -69,12 +67,11 @@ namespace CourierFirm.Core.Controllers
             return true;
         }
 
-        public async Task<List<Courier>> GetCouriersByVehicleId(int vehicleId)
+        public async Task<List<Vehicle>> GetVehiclesByCourierId(int courierId)
         {
-
-            return await _context.CouriersVehicle
-                .Where(cv => cv.VehicleId == vehicleId)
-                .Select(cv => cv.Courier)
+            return await _context.CouriersVehicles
+                .Where(cv => cv.CourierId == courierId)
+                .Select(cv => cv.Vehicle)
                 .ToListAsync();
         }
     }

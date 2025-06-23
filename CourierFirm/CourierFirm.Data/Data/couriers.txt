@@ -1,5 +1,5 @@
-﻿Aneliq Ivanova;1;1
-Mariq Toneva;2;2
-Samuil Mitkov;3;3
-Alex Dimitrov;4;4
-Maq Kachakova;5;5
+﻿Aneliq Ivanova;1
+Mariq Toneva;2
+Samuil Mitkov;3
+Alex Dimitrov;4
+Maq Kachakova;5

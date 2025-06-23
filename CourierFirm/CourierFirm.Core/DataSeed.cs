@@ -139,13 +139,12 @@ namespace CourierFirm.Core
             foreach (var line in lines)
             {
                 var parts = line.Split(';');
-                if (parts.Length != 3) continue;
+                if (parts.Length != 2) continue;
 
                 couriers.Add(new Courier
                 {
                     Name = parts[0],
                     OfficeId = int.Parse(parts[1]),
-                    VehicleId = int.Parse(parts[2])
                 });
             }
 
@@ -194,7 +193,7 @@ namespace CourierFirm.Core
 
         public async Task SeedCouriersVehiclesAsync()
         {
-            if (await context.CouriersVehicle.AnyAsync())
+            if (await context.CouriersVehicles.AnyAsync())
             {
                 return;
             }
@@ -221,7 +220,7 @@ namespace CourierFirm.Core
                 });
             }
 
-            await context.CouriersVehicle.AddRangeAsync(couriersVehicles);
+            await context.CouriersVehicles.AddRangeAsync(couriersVehicles);
             await context.SaveChangesAsync();
         }
 

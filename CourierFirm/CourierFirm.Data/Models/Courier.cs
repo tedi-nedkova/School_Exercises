@@ -18,9 +18,8 @@ namespace CourierFirm.Data
         [ForeignKey(nameof(OfficeId))]
         public Office Office { get; set; } = null!;
 
-        public int? VehicleId { get; set; }
-        [ForeignKey(nameof(OfficeId))]
-        public Vehicle Vehicle { get; set; } = null!;
+        public ICollection<CourierVehicle> CourierVehicles { get; set; }
+                = new List<CourierVehicle>();
 
         public ICollection<Package> Packages { get; set; } 
                 = new List<Package>();
