@@ -25,7 +25,61 @@ namespace CourierFirmForms
             InitializeComponent();
         }
 
-        private async void panel1_Paint(object sender, PaintEventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string startLocation = textBox1.Text;
+                string endLocation = textBox2.Text;
+
+                DeliveryRoute deliveryRoute = new DeliveryRoute
+                {
+                    StartLocation = startLocation,
+                    EndLocation = endLocation
+                };
+
+                await routeController.AddAsync(deliveryRoute);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                textBox1.Text = "";
+                textBox2.Text = "";
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 form1 = new Form1();
+            form1.Show();
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string name = textBox3.Text;
+
+                List<DeliveryRoute> deliveryRoutes = await routeController.GetDeliveryRouteByCourierName(name);
+
+                foreach (var item in deliveryRoutes)
+                {
+                    listBox2.Items.Add($"{item.StartLocation} -> {item.EndLocation}");
+                    listBox2.Items.Add("");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int command = comboBox1.SelectedIndex;
 
@@ -81,60 +135,6 @@ namespace CourierFirmForms
                 textBox3.Visible = true;
                 listBox2.Visible = true;
                 button3.Visible = true;
-            }
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string startLocation = textBox1.Text;
-                string endLocation = textBox2.Text;
-
-                DeliveryRoute deliveryRoute = new DeliveryRoute
-                {
-                    StartLocation = startLocation,
-                    EndLocation = endLocation
-                };
-
-                await routeController.AddAsync(deliveryRoute);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                textBox1.Text = "";
-                textBox2.Text = "";
-            }
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Form1 form1 = new Form1();
-            form1.Show();
-        }
-
-        private async void button3_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                string name = textBox3.Text;
-
-                List<DeliveryRoute> deliveryRoutes = await routeController.GetDeliveryRouteByCourierName(name);
-
-                foreach (var item in deliveryRoutes)
-                {
-                    listBox2.Items.Add($"{item.StartLocation} -> {item.EndLocation}");
-                    listBox2.Items.Add("");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
