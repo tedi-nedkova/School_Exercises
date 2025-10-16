@@ -1,0 +1,124 @@
+h1 {
+    font-size: 32px;
+    color:blue;
+}
+
+h2 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.red-text {
+    color: red;
+
+}
+
+.font-size-and-line-height {
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.text-transform-uppercase {
+    text-transform: uppercase;
+}
+
+.letter-spacing {
+    letter-spacing: 2px;
+}
+
+.italic-font {
+    font-style: italic;
+}
+
+.yellow-background {
+    background-color: yellow;
+}
+
+.light-gray {
+    padding: 20px;
+    background-color: lightgray;
+}
+
+.border-margin {
+    margin: 30px;
+    border: 2px solid black;
+}
+
+.green-link {
+    color: green;
+    text-decoration: none;
+}
+
+.blue-and-white {
+    background-color: blue;
+    color: white;
+}
+
+.padding-li {
+    padding: 10px;
+}
+
+.square-li {
+    list-style-type: square;
+}
+
+.font-size-li {
+    font-size: 18px;
+}
+
+.margin-left-li {
+    margin-left: 20px;  
+}
+
+.bold-li {
+    font-weight: bold;
+}
+
+.purple-li {
+    color: purple;
+}
+
+.image {
+    width: 150px;
+    border-radius: 50%;
+}
+
+.gray-table-header {
+    background-color: gray;
+}
+
+.padding-header {
+    padding:10px;
+}
+
+.border-cell {
+    border: 1px solid black;
+}
+
+.center-cell {
+    text-align: center;
+}
+
+.lightblue-padding {
+    background-color: lightblue;
+    padding: 20px;
+}
+
+.margin-text-align {
+    margin: 40px;
+    text-align: justify;
+}
+
+.margin-top-padding {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.blue-border {
+    border: 1px solid blue;
+}
+
+.footer {
+    font-size: 14px;
+    text-align: center;
+}
