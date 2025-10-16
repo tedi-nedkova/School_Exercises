@@ -1,0 +1,32 @@
+.contact-us-container {
+    width: 25%;
+    background-color: #EEE;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-container {
+    display: flex;
+    width: 100%;
+    max-height: 30px;
+   align-items: center;
+}
+
+.info {
+    width: 40%;
+}
+
+input {
+    width: 60%
+}
+
+.submit-button {
+    width: 30%;
+    border-radius: 2px;
+    padding: 5px;
+}
+

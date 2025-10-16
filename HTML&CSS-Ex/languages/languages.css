@@ -1,0 +1,14 @@
+.text {
+    background-color: #EEE;
+    font-size: 24px;
+    width: 20%;
+    row-gap: 5px;
+    padding: 10px;
+}
+
+.lang {
+    border: 1px #AAA;
+    border-radius: 10px;
+    background-color: #CCC;
+    padding: 2px
+}
