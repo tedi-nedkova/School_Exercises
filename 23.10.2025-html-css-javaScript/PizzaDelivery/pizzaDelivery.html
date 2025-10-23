@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <body>
+
+    <form class="pizza-form" id="pizzaForm">
+        <h2>Калкулатор за пица</h2>
+
+        <p id="name-label">Име:</p>
+        <input type="text" id="name" >
+
+         <p id="email-label">Имейл:</p>
+        <input type="email" id="email" >
+
+         <p id="type-label">Вид пица:</p>
+        <div class="radio-group">
+            <div id="radio-box"><input type="radio" name="pizzaType" value="8" > Маргарита - 8 лв</div>
+            <div id="radio-box"><input type="radio" name="pizzaType" value="10"> Пеперони - 10 лв</div>
+            <div id="radio-box"><input type="radio" name="pizzaType" value="9"> Вегетарианска - 9 лв</div>
+        </div>
+
+        <p id="size-label">Размер на пицата:</p>
+        <select id="size">
+            <option value="0">Малка (+0 лв)</option>
+            <option value="2">Средна (+2 лв)</option>
+            <option value="4">Голяма (+4 лв)</option>
+        </select>
+
+         <p id="count-label">Брой пици:</p>
+        <input type="number" id="quantity" min="1" value="1">
+
+        <button type="button" onclick="calculatePrice()">Изчисли цена</button>
+
+        <div class="result" id="result"></div>
+    </form>
+
+    <script src="delivery.js"></script>
+</body>
+
+</html>

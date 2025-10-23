@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+
+
+    <title>Checkout Form</title>
+
+</head>
+
+<body>
+
+    <form action="/submit" method="post">
+        <fieldset>
+            <legend>Your details</legend>
+            <label for="name">1. Name</label>
+            <input type="text" id="name" name="name" placeholder="First and last name" required>
+
+            <label for="email">2. Email</label>
+            <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+
+            <label for="phone">3. Phone</label>
+            <input type="tel" id="phone" name="phone" placeholder="Eg. +447500000000" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Delivery address</legend>
+            <label for="address">1. Address</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+
+            <label for="postcode">2. Post code</label>
+            <input type="text" id="postcode" name="postcode" required>
+
+            <label for="country">3. Country</label>
+            <input type="text" id="country" name="country" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Card details</legend>
+            <label>1. Card type</label>
+            <div class="card-options">
+                <label><input type="radio" name="card_type" value="visa" required> VISA</label>
+                <label><input type="radio" name="card_type" value="amex"> AmEx</label>
+                <label><input type="radio" name="card_type" value="mastercard"> Mastercard</label>
+            </div>
+
+            <label for="card_number">2. Card number</label>
+            <input type="text" id="card_number" name="card_number" required>
+
+            <label for="security_code">3. Security code</label>
+            <input type="text" id="security_code" name="security_code" required>
+
+            <label for="card_name">4. Name on card</label>
+            <input type="text" id="card_name" name="card_name" placeholder="Exact name as on the card" required>
+        </fieldset>
+
+        <div class="submitBox">
+            <button type="submit">Buy it!</button>
+        </div>
+    </form>
+
+</body>
+
+</html>

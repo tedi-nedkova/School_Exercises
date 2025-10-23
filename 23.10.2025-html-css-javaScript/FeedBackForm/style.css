@@ -1,0 +1,23 @@
+#input-container {
+    display: flex;
+    min-width: 100%;
+    align-items: center;
+    gap: 5px;
+}
+
+input {
+    max-height: 25px;
+}
+
+#radio-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#radio-button {
+    margin-left: 50px;
+}
+
+#submit-button {
+    margin-top: 25px;
+}
