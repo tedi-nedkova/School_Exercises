@@ -1,0 +1,41 @@
+﻿@model RetailChainData.Entities.Product
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h2>Add Product</h2>
+
+<form asp-action="Create" method="post" class="card p-4 shadow-sm">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter product name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Type</label>
+        <select asp-for="Type" class="form-select">
+            <option value="">-- Select Type --</option>
+            <option value="foods">foods</option>
+            <option value="clothes">clothes</option>
+            <option value="cosmetics">cosmetics</option>
+        </select>
+        <span asp-validation-for="Type" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Price ($)</label>
+        <input asp-for="Price" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input asp-for="Quantity" type="number" class="form-control" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Product</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

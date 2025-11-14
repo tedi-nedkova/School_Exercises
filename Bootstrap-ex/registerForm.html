@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрационна форма за ученици</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+
+            <h3 class="mb-4 fw-bold">Регистрационна форма за ученици</h3>
+
+            <form class="p-4 bg-white rounded shadow-sm">
+
+                <div class="mb-3">
+                    <label class="form-label">Име и фамилия</label>
+                    <input type="text" class="form-control" placeholder="Въведете име">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Имейл</label>
+                    <input type="email" class="form-control" placeholder="Въведете имейл">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Парола</label>
+                    <input type="password" class="form-control" placeholder="Въведете парола">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Изберете клас</label>
+                    <select class="form-select">
+                        <option selected>Изберете...</option>
+                        <option>7А</option>
+                        <option>7Б</option>
+                        <option>7В</option>
+                        <option>8А</option>
+                        <option>8Б</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Регистрация
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

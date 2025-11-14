@@ -1,0 +1,95 @@
+﻿@model IEnumerable<RetailChainData.Entities.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Small Business - Start Bootstrap Template</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+
+<body>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Product List</h2>
+        <a asp-action="Create" asp-controller="Product" class="btn btn-success">Add Product</a>
+    </div>
+
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 align-items-center my-5">
+            <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://www.chainstoreguide.com/email/lct_exclusive2017aug.jpg" alt="..." /></div>
+            <div class="col-lg-5">
+                <h1 class="font-weight-light">Retail Chain Data</h1>
+                <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
+                <a class="btn btn-primary" href="https://www.lidl.bg/">Lidl site!</a>
+            </div>
+        </div>
+        
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-warning text-center">
+                There are currently no products available!
+            </div>
+        }
+        else
+        {
+            <div class="row gx-4 gx-lg-5">
+                @foreach (var p in Model)
+                {
+                    var code = $"{p.Name.Substring(0, 2)}" +
+                    $"{p.Type.ToString().Substring(0, 3)}" +
+                    $"{p.Id}";
+
+                    <div class="col-md-4 mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+
+                                <h3 class="card-title">@p.Name</h3>
+
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item"><strong>ID:</strong> @p.Id</li>
+                                    <li class="list-group-item"><strong>Type:</strong> @p.Type</li>
+                                    <li class="list-group-item"><strong>Price:</strong> $@p.Price.ToString("F2")</li>
+                                    <li class="list-group-item"><strong>Quantity:</strong> @p.Quantity</li>
+                                    <li class="list-group-item"><strong>Code:</strong> @code</li>
+                                </ul>
+
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-between">
+                                <a asp-action="EditPrice" asp-route-id="@p.Id"
+                                   class="btn btn-sm btn-warning">
+                                    Edit Price
+                                </a>
+
+                                <form asp-action="Delete" asp-route-id="@p.Id"
+                                      method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Are you sure you want to delete this product?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+    </div>
+    <footer class="py-5 bg-dark">
+        <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">&copy; 2025 - RetailChainWeb</p></div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
+

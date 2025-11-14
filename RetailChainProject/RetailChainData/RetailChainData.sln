@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailChainData", "RetailChainData\RetailChainData.csproj", "{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailChainWeb", "..\RetailChainWeb\RetailChainWeb.csproj", "{B53C0B5F-2FF7-437B-AB2D-70A319320328}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Debug|x86.ActiveCfg = Debug|x86
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Debug|x86.Build.0 = Debug|x86
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Release|x86.ActiveCfg = Release|x86
+		{0F3AAD60-8A9F-44FA-B510-AF8C1664590A}.Release|x86.Build.0 = Release|x86
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Debug|x86.ActiveCfg = Debug|x86
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Debug|x86.Build.0 = Debug|x86
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Release|x86.ActiveCfg = Release|x86
+		{B53C0B5F-2FF7-437B-AB2D-70A319320328}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D49D4A3-0360-4B9C-B6C5-2B0225199CD6}
+	EndGlobalSection
+EndGlobal

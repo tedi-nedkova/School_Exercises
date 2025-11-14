@@ -1,0 +1,19 @@
+﻿@model RetailChainData.Entities.Product
+
+@{
+    ViewData["Title"] = "Edit Price";
+}
+
+<h2>Edit Price – @Model.Name</h2>
+
+<form asp-action="EditPrice" method="post" class="card p-4 shadow-sm">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="mb-3">
+        <label class="form-label">New Price ($)</label>
+        <input asp-for="Price" type="number" name="price" asp-value="@Model.Price" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
